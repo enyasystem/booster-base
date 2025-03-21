@@ -1,0 +1,24 @@
+.swiper-pagination-bullet {
+  @apply bg-white opacity-50 w-2 h-2 md:w-3 md:h-3;
+}
+
+.swiper-pagination-bullet-active {
+  @apply opacity-100;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  @apply text-white opacity-75 hover:opacity-100 transition-opacity;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  @apply text-2xl md:text-3xl;
+}
+
+@media (max-width: 768px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    @apply hidden;
+  }
+}

@@ -1,0 +1,116 @@
+import { useState } from 'react';
+import { ExternalLink } from 'lucide-react';
+
+const videos = [
+  {
+    id: "RWgW-CgdIk0",
+    title: "Understanding Cloud Computing",
+    description: "A comprehensive guide to cloud computing concepts and services",
+    thumbnail: `https://img.youtube.com/vi/RWgW-CgdIk0/maxresdefault.jpg`
+  },
+  {
+    id: "ULGILG-ZhO0",
+    title: "Cybersecurity Essentials",
+    description: "Learn the fundamentals of cybersecurity and best practices",
+    thumbnail: `https://img.youtube.com/vi/ULGILG-ZhO0/maxresdefault.jpg`
+  },
+  {
+    id: "tSodBEAJz9Y",
+    title: "Networking Explained",
+    description: "Introduction to computer networking concepts and principles",
+    thumbnail: `https://img.youtube.com/vi/tSodBEAJz9Y/maxresdefault.jpg`
+  },
+  {
+    id: "B-ytMSuwbf8",
+    title: "Web Design for Beginners",
+    description: "Learn essential web design principles and best practices for creating modern websites",
+    thumbnail: `https://img.youtube.com/vi/B-ytMSuwbf8/maxresdefault.jpg`
+  }
+];
+
+const YouTubeSection = () => {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
+  return (
+    <section className="py-16 md:py-24 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Educational Resources
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Explore our curated collection of educational videos on cloud computing, cybersecurity, and networking
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          {videos.map((video) => (
+            <div 
+              key={video.id}
+              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            >
+              {/* Video Preview */}
+              <div className="relative aspect-video group">
+                <img
+                  src={video.thumbnail}
+                  alt={video.title}
+                  className="w-full h-full object-cover"
+                />
+                <div 
+                  className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 
+                    transition-opacity duration-300 flex items-center justify-center"
+                >
+                  <a
+                    href={`https://www.youtube.com/watch?v=${video.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 
+                      hover:bg-red-700 transition-colors duration-300"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setActiveVideo(video.id);
+                    }}
+                  >
+                    Play Video <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Video Info */}
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2 text-gray-900">{video.title}</h3>
+                <p className="text-gray-600">{video.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Video Modal */}
+        {activeVideo && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4"
+            onClick={() => setActiveVideo(null)}
+          >
+            <div className="relative w-full max-w-4xl aspect-video">
+              <iframe
+                src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1`}
+                title="YouTube video player"
+                className="absolute inset-0 w-full h-full rounded-lg"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+              <button
+                onClick={() => setActiveVideo(null)}
+                className="absolute -top-10 right-0 text-white hover:text-gray-300"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};
+
+export default YouTubeSection;
