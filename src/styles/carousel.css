@@ -1,24 +1,130 @@
+/* Base carousel styles */
 .swiper-pagination-bullet {
   @apply bg-white opacity-50 w-2 h-2 md:w-3 md:h-3;
+  background: rgba(0, 0, 0, 0.5) !important;
+  width: 8px !important;
+  height: 8px !important;
+  opacity: 0.5 !important;
 }
 
 .swiper-pagination-bullet-active {
   @apply opacity-100;
+  opacity: 1 !important;
+  background: #2563eb !important;
 }
 
+/* Navigation buttons */
 .swiper-button-prev,
 .swiper-button-next {
   @apply text-white opacity-75 hover:opacity-100 transition-opacity;
+  width: 32px !important;
+  height: 32px !important;
+  margin: 0 !important;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.swiper:hover .swiper-button-prev,
+.swiper:hover .swiper-button-next {
+  opacity: 1;
 }
 
 .swiper-button-prev::after,
 .swiper-button-next::after {
-  @apply text-2xl md:text-3xl;
+  display: none !important;
 }
 
 @media (max-width: 768px) {
   .swiper-button-prev,
   .swiper-button-next {
     @apply hidden;
+  }
+}
+
+.swiper-pagination {
+  position: absolute;
+  bottom: 0 !important;
+  padding: 1rem 0;
+}
+
+/* Modal specific styles */
+[role="dialog"] .swiper-container {
+  height: calc(100vh - 2rem);
+}
+
+[role="dialog"] .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Modal specific styles */
+.carousel-dialog {
+  width: calc(100% - 2rem) !important;
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+}
+
+.carousel-dialog .dialog-content {
+  padding: 0;
+  overflow: hidden;
+}
+
+.carousel-slide-image {
+  max-width: 100%;
+  max-height: 80vh;
+  object-contain: contain;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Close button */
+.carousel-close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.carousel-close-button:hover {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .carousel-dialog {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    @apply hidden;
+  }
+
+  .carousel-caption {
+    @apply p-3;
+    font-size: 14px;
+  }
+
+  .carousel-close-button {
+    @apply right-1 top-1 p-1;
   }
 }

@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -14,18 +13,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import { Label } from "@/components/ui/label";
 import { Loader2, Upload } from 'lucide-react';
-
-interface Category {
-  id: string;
-  name: string;
-}
+import { PostgrestError } from '@supabase/supabase-js';
+import { StorageError } from '@supabase/storage-js';
+import { Product, Category } from '@/types/products';
 
 interface ProductFormProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
   categories: Category[];
-  product?: any;
+  product?: Product;
 }
 
 // Define a schema that matches the database requirements
@@ -40,6 +37,19 @@ const formSchema = z.object({
 });
 
 type ProductFormValues = z.infer<typeof formSchema>;
+
+type DatabaseError = PostgrestError | Error;
+type FileUploadError = StorageError | Error;
+
+interface ProductFormData {
+  name: string;
+  description: string;
+  price_range: string;
+  category_id: string;
+  image_url?: string;
+  is_featured: boolean;
+  features: string[];
+}
 
 const ProductForm = ({ isOpen, onClose, onSuccess, categories, product }: ProductFormProps) => {
   const { toast } = useToast();
@@ -97,8 +107,9 @@ const ProductForm = ({ isOpen, onClose, onSuccess, categories, product }: Produc
         title: "Image uploaded successfully",
         description: "Your image has been uploaded and will be used for this product."
       });
-    } catch (error) {
-      console.error('Upload error:', error);
+    } catch (error: unknown) {
+      const uploadError = error as FileUploadError;
+      console.error('Upload error:', uploadError);
       toast({
         title: "Upload failed",
         description: "There was an error uploading your image. Please try again.",
@@ -112,43 +123,50 @@ const ProductForm = ({ isOpen, onClose, onSuccess, categories, product }: Produc
   const handleSubmit = async (values: ProductFormValues) => {
     setIsSubmitting(true);
     try {
-      // Format price range to ensure it uses Naira symbol
-      const formattedValues = {
-        ...values,
-        price_range: values.price_range.replace(/\$/g, '₦')
-      };
+      const selectedCategory = categories.find(c => c.id === values.category_id);
+      console.log('Form submission:', {
+        values,
+        selectedCategory,
+        allCategories: categories
+      });
       
-      if (product) {
-        // Update existing product
-        const { error } = await supabase
-          .from('products')
-          .update(formattedValues)
-          .eq('id', product.id);
-        
-        if (error) throw error;
-      } else {
-        // Create new product
-        const { error } = await supabase
-          .from('products')
-          .insert({
-            name: formattedValues.name,
-            description: formattedValues.description,
-            price_range: formattedValues.price_range,
-            category_id: formattedValues.category_id,
-            features: formattedValues.features,
-            is_featured: formattedValues.is_featured,
-            image_url: formattedValues.image_url
-          });
-        
-        if (error) throw error;
+      if (!selectedCategory) {
+        throw new Error('Invalid category selected');
       }
+
+      const formattedValues = {
+        name: values.name,
+        description: values.description,
+        price_range: values.price_range.replace(/\$/g, '₦'),
+        category_id: selectedCategory.id, // Ensure the correct ID is used
+        image_url: values.image_url || null,
+        is_featured: values.is_featured,
+        features: values.features || []
+      };
+
+      console.log('Submitting to database:', formattedValues);
+
+      const { data, error } = await supabase
+        .from('products')
+        .insert([formattedValues])
+        .select()
+        .single();
       
+      if (error) throw error;
+      
+      console.log('Created product:', data);
       onSuccess();
-    } catch (error: any) {
-      console.error('Error saving product:', error);
+
+    } catch (error: unknown) {
+      const dbError = error as DatabaseError;
+      console.error('Full error details:', {
+        error: dbError,
+        formValues: values,
+        selectedCategory: categories.find(c => c.id === values.category_id)
+      });
       toast({
         title: "Error",
-        description: `Failed to save product: ${error.message}`,
+        description: `Failed to save product: ${dbError.message}`,
         variant: "destructive",
       });
     } finally {

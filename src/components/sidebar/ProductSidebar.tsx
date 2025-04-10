@@ -170,7 +170,7 @@ const ProductSidebar: React.FC<ProductSidebarProps> = ({ className }) => {
 
   return (
     <aside className={className}>
-      <div className="sticky top-0 bg-blue-50/95 backdrop-blur-md p-4 border-b border-blue-100 z-10">
+      <div className="sticky top-0 bg-blue-50/95 backdrop-blur-md p-4 border-b border-blue-100 z-10 mt-8">
         <h2 className="text-xl font-bold text-blue-800">Our Products</h2>
         <p className="text-sm text-blue-600/80">Browse our solutions</p>
       </div>

@@ -36,22 +36,19 @@ const Products = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data: categoriesData, error: categoriesError } = await supabase
-          .from('service_categories')
-          .select('*')
-          .order('name');
-
-        if (categoriesError) throw categoriesError;
-
-        // Fetch from products table instead of services_offered
+        setIsLoading(true);
+        console.log("Fetching product categories and products...");
+        
+        // First fetch products from products table
         const { data: productsData, error: productsError } = await supabase
           .from('products')
           .select('*')
           .order('name');
 
-        if (productsError) throw productsError;
-
-        setCategories(categoriesData || []);
+        if (productsError) {
+          console.error("Error fetching products:", productsError);
+          throw productsError;
+        }
         
         // Transform the data to match Product interface
         const transformedProducts = (productsData as Product[] || []).map(product => ({
@@ -66,13 +63,27 @@ const Products = () => {
         }));
         
         setProducts(transformedProducts);
-      } catch (error) {
+        
+        // Then fetch categories
+        const { data: categoriesData, error: categoriesError } = await supabase
+          .from('service_categories')
+          .select('*')
+          .order('name');
+
+        if (categoriesError) {
+          console.error("Error fetching categories:", categoriesError);
+          throw categoriesError;
+        }
+        
+        setCategories(categoriesData || []);
+        
+      } catch (error: any) {
+        console.error("Error loading data:", error);
         toast({
-          title: "Error loading products",
+          title: "Error loading data",
           description: "Please try again later",
           variant: "destructive",
         });
-        console.error("Error fetching products:", error);
       } finally {
         setIsLoading(false);
       }
@@ -81,6 +92,7 @@ const Products = () => {
     fetchData();
   }, [toast]);
 
+  // Filter products based on the selected category
   const filteredProducts = selectedCategory
     ? products.filter(product => product.category_id === selectedCategory)
     : products;

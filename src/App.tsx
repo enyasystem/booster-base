@@ -28,6 +28,9 @@ import AccountSettings from "./pages/admin/AccountSettings";
 import ProductDetail from './components/products/ProductDetail';
 import { ProductsProvider } from '@/context/ProductsContext';
 // import BlogManagement from '@/components/admin/BlogManagement';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfUse from './pages/TermsOfUse';
+import Enterprise from './pages/Enterprise';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -61,6 +64,9 @@ const App = () => (
                 
                 {/* <Route path="/news/:slug" element={<NewsDetail />} /> */}
                 <Route path="/products/:id" element={<ProductDetail />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/terms-of-use" element={<TermsOfUse />} />
+                <Route path="/enterprise" element={<Enterprise />} />
                 
                 <Route path="/admin" element={<AdminLayout />}>
                   <Route index element={<AdminDashboard />} />

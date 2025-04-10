@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -11,6 +10,10 @@ import ProductForm from '@/components/admin/products/ProductForm';
 import ProductsTable from '@/components/admin/products/ProductsTable';
 import { useAuth } from '@/hooks/useAuth';
 import { AccessDenied } from '@/components/admin/AccessDenied';
+import { PostgrestError } from '@supabase/supabase-js';
+import { Category } from '@/types/products';
+
+type DatabaseError = PostgrestError | Error;
 
 const ProductManagement = () => {
   const { checkIsAdmin } = useAuth();
@@ -29,34 +32,59 @@ const ProductManagement = () => {
     verifyAdmin();
   }, [checkIsAdmin]);
 
-  const { data: products, isLoading, error, refetch } = useQuery({
-    queryKey: ['admin-products'],
-    queryFn: async () => {
-      try {
-        const { data, error } = await supabase
-          .from('products')
-          .select('*, service_categories(*)')
-          .order('created_at', { ascending: false });
-        
-        if (error) throw error;
-        return data;
-      } catch (error: any) {
-        console.error("Error fetching products:", error);
-        throw new Error(`Failed to fetch products: ${error.message}`);
+  const fetchProducts = async () => {
+    try {
+      const { data: cats } = await supabase.from('categories').select('*');
+      console.log('Categories available:', cats);
+
+      const { data, error } = await supabase
+        .from('products')
+        .select(`
+          *,
+          category:category_id(id, name, slug)
+        `)
+        .order('created_at', { ascending: false });
+      
+      if (error) {
+        throw error;
       }
-    },
-    enabled: isAdmin
+
+      console.log('Products fetched:', data);
+      return data || []; // Ensure we always return an array
+    } catch (error: unknown) {
+      const dbError = error as DatabaseError;
+      console.error('Error fetching products:', dbError);
+      toast({
+        title: "Error",
+        description: `Failed to fetch products: ${dbError.message}`,
+        variant: "destructive",
+      });
+      return []; // Return empty array on error
+    }
+  };
+
+  const { data: products = [], isLoading, error, refetch } = useQuery({
+    queryKey: ['admin-products'],
+    queryFn: fetchProducts,
+    enabled: isAdmin,
+    initialData: [] // Provide initial data
   });
 
-  const { data: categories } = useQuery({
+  const { data: categories } = useQuery<Category[]>({
     queryKey: ['product-categories'],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('service_categories')
+        .from('categories')
         .select('*')
         .order('name');
       
       if (error) throw error;
+      // Log available categories and their IDs
+      console.log('Available categories:', data?.map(c => ({
+        id: c.id,
+        name: c.name,
+        slug: c.slug
+      })));
       return data;
     },
     enabled: isAdmin

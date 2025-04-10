@@ -6,25 +6,25 @@ import { Button } from '@/components/ui/button';
 
 const carouselData = [
   {
-    title: "Leading ICT Solutions Provider",
-    description: "Comprehensive technology services and innovative solutions across Nigeria",
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-    link: "/solutions",
-    linkText: "Explore Solutions"
-  },
-  {
     title: "Professional IT Training",
     description: "Expert-led training programs to enhance your technical skills",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+    image: "/ICT Training.jpg",
     link: "/training",
     linkText: "View Courses"
   },
   {
     title: "Enterprise Solutions",
     description: "Custom solutions for businesses of all sizes",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+    image: "/vsat.jpg",
     link: "/enterprise",
     linkText: "Learn More"
+  },
+  {
+    title: "Premium IT Products",
+    description: "Discover our wide range of high-quality computers, networking equipment, and security solutions",
+    image: "/slider-4.jpg",
+    link: "/products",
+    linkText: "View Products"
   }
 ];
 
@@ -75,3 +75,6 @@ const CarouselHero = () => {
 };
 
 export default CarouselHero;
+// image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+// image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+// image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",

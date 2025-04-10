@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -24,23 +23,8 @@ import {
 } from '@/components/ui/alert-dialog';
 import { useToast } from '@/components/ui/use-toast';
 import ProductForm from './ProductForm';
-
-interface Category {
-  id: string;
-  name: string;
-}
-
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price_range: string;
-  category_id: string;
-  image_url: string;
-  is_featured: boolean;
-  features: string[];
-  service_categories: Category;
-}
+import { PostgrestError } from '@supabase/supabase-js';
+import { Product, Category } from '@/types/products';
 
 interface ProductsTableProps {
   products: Product[];
@@ -48,6 +32,8 @@ interface ProductsTableProps {
   onProductDeleted: () => void;
   categories: Category[];
 }
+
+type DatabaseError = PostgrestError | Error;
 
 const ProductsTable = ({ 
   products, 
@@ -71,11 +57,12 @@ const ProductsTable = ({
       if (error) throw error;
       
       onProductDeleted();
-    } catch (error: any) {
-      console.error('Error deleting product:', error);
+    } catch (error: unknown) {
+      const dbError = error as DatabaseError;
+      console.error('Error deleting product:', dbError);
       toast({
         title: "Error",
-        description: `Failed to delete product: ${error.message}`,
+        description: `Failed to delete product: ${dbError.message}`,
         variant: "destructive",
       });
     } finally {
@@ -108,7 +95,9 @@ const ProductsTable = ({
                 products.map((product) => (
                   <TableRow key={product.id}>
                     <TableCell className="font-medium">{product.name}</TableCell>
-                    <TableCell>{product.service_categories?.name || 'N/A'}</TableCell>
+                    <TableCell>
+                      {product.category?.name || categories.find(c => c.id === product.category_id)?.name || 'N/A'}
+                    </TableCell>
                     <TableCell>{product.price_range || 'N/A'}</TableCell>
                     <TableCell>
                       {product.is_featured && <Star className="h-4 w-4 text-yellow-500" />}

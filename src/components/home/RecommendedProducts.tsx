@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { useCartContext } from '@/components/cart/CartProvider';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -26,66 +27,9 @@ interface Product {
   is_featured: boolean;
 }
 
-const recommendedProducts: Product[] = [
-  {
-    id: "1",
-    name: "Enterprise Network Solution",
-    description: "Complete Cisco networking infrastructure with switches, routers, and security appliances.",
-    price_range: "2,500,000",
-    image_url: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category_id: "networking",
-    is_featured: true
-  },
-  {
-    id: "2",
-    name: "Cloud Infrastructure Package",
-    description: "AWS/Azure cloud infrastructure setup with monitoring and management tools.",
-    price_range: "1,800,000",
-    image_url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category_id: "cloud",
-    is_featured: true
-  },
-  {
-    id: "3",
-    name: "Cybersecurity Suite",
-    description: "Enterprise-grade security solution with firewall, antivirus, and threat detection.",
-    price_range: "3,200,000",
-    image_url: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category_id: "security",
-    is_featured: true
-  },
-  {
-    id: "4",
-    name: "Data Center Solutions",
-    description: "Complete data center setup with servers, storage, and backup systems.",
-    price_range: "5,500,000",
-    image_url: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category_id: "infrastructure",
-    is_featured: true
-  },
-  {
-    id: "5",
-    name: "Business Communication Suite",
-    description: "VoIP phone systems, video conferencing, and unified communications.",
-    price_range: "1,200,000",
-    image_url: "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category_id: "communication",
-    is_featured: true
-  },
-  {
-    id: "6",
-    name: "Digital Transformation Package",
-    description: "Complete business digitalization solution with software and infrastructure.",
-    price_range: "4,800,000",
-    image_url: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category_id: "digital",
-    is_featured: true
-  }
-];
-
 const RecommendedProducts = () => {
-  const [products, setProducts] = useState<Product[]>(recommendedProducts);
-  const [isLoading, setIsLoading] = useState(false);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
   const { addToCart } = useCartContext();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -98,6 +42,34 @@ const RecommendedProducts = () => {
   }, [
     Autoplay({ delay: 5000, stopOnInteraction: false })
   ]);
+
+  useEffect(() => {
+    const fetchFeaturedProducts = async () => {
+      try {
+        setIsLoading(true);
+        const { data, error } = await supabase
+          .from('products')
+          .select('*')
+          .eq('is_featured', true)
+          .order('name')
+          .limit(6);
+
+        if (error) throw error;
+        setProducts(data || []);
+      } catch (error) {
+        console.error("Error fetching recommended products:", error);
+        toast({
+          title: "Error",
+          description: "Failed to load products. Please try again later.",
+          variant: "destructive",
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchFeaturedProducts();
+  }, [toast]);
 
   const handleAddToCart = (product: Product) => {
     // Set showCart to false to prevent auto-popup

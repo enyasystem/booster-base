@@ -21,8 +21,9 @@ import CarouselHero from '@/components/CarouselHero';
 import YouTubeSection from '@/components/home/YouTubeSection';
 import TestimonialCarousel from '@/components/home/TestimonialCarousel';
 import LoadingScreen from '@/components/LoadingScreen';
-import { RevealOnScroll } from '@/components/animations/RevealOnScroll';
 import BlogSection from '@/components/home/BlogSection';
+
+// Remove this interface as it's not being used in this file
 
 const SectionLoader = () => (
   <div className="w-full h-96 flex items-center justify-center">
@@ -84,7 +85,7 @@ const Index = () => {
       
       <div className="relative min-h-screen flex flex-col">
         <Helmet>
-          <title>Booster Base Nigeria Limited - Leading ICT Solutions Provider</title>
+          <title>Booster Base Nigeria Limited - Leading ICT Solutions Provider in Plateau State, Jos</title>
           <meta name="description" content="Booster Base Nigeria Limited is a leading ICT solutions provider offering comprehensive technology services, training, and innovative solutions across Nigeria." />
           <meta name="keywords" content="ICT solutions, technology services, IT training, Nigeria, Jos, software development, network infrastructure" />
           <link rel="canonical" href="https://boosterbaseng.com" />
@@ -127,6 +128,17 @@ const Index = () => {
               ]
             })}
           </script>
+
+          {/* Favicon */}
+          <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+          <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+          <link rel="manifest" href="/favicon/site.webmanifest" />
+          <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5" />
+          <link rel="shortcut icon" href="/favicon/favicon.ico" />
+          <meta name="msapplication-TileColor" content="#2d89ef" />
+          <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
+          <meta name="theme-color" content="#ffffff" />
         </Helmet>
 
         <Navigation />
@@ -137,78 +149,41 @@ const Index = () => {
           <main className="w-full overflow-x-hidden">
             <CarouselHero />
             <Suspense fallback={<SectionLoader />}>
-              <RevealOnScroll effect="slide" duration={1.2}>
-                <CoreValues />
-              </RevealOnScroll>
+              <CoreValues />
+              <CompanyHistory />
+              <ClientsSection />
+              <TrainingSection />
+              <TestimonialCarousel />
 
-              <RevealOnScroll direction="right" effect="scale" delay={0.3} duration={1}>
-                <CompanyHistory />
-              </RevealOnScroll>
+              <section className="py-12 md:py-20 px-4 md:px-6">
+                <div className="max-w-7xl mx-auto text-center">
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 text-gray-900">
+                    Explore Our Products
+                  </h2>
+                  
+                  <p className="text-base md:text-xl text-gray-600 mb-6 md:mb-8 max-w-2xl mx-auto">
+                    Discover our comprehensive range of ICT solutions
+                  </p>
 
-              <RevealOnScroll direction="left" effect="rotate" delay={0.2} duration={1}>
-                <ClientsSection />
-              </RevealOnScroll>
+                  <RecommendedProducts />
 
-              <RevealOnScroll effect="slide" duration={1}>
-                <TrainingSection />
-              </RevealOnScroll>
-
-              <RevealOnScroll effect="flip" delay={0.3} duration={1.2}>
-                <TestimonialCarousel />
-              </RevealOnScroll>
-
-              <RevealOnScroll effect="scale">
-                <section className="py-12 md:py-20 px-4 md:px-6">
-                  <div className="max-w-7xl mx-auto text-center">
-                    <RevealOnScroll effect="fade" delay={0.4} duration={1}>
-                      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 text-gray-900">
-                        Explore Our Products
-                      </h2>
-                    </RevealOnScroll>
-                    
-                    <RevealOnScroll effect="slide" delay={0.6} duration={1}>
-                      <p className="text-base md:text-xl text-gray-600 mb-6 md:mb-8 max-w-2xl mx-auto">
-                        Discover our comprehensive range of ICT solutions
-                      </p>
-                    </RevealOnScroll>
-
-                    <RecommendedProducts />
-
-                    {/* Add the view all products button */}
-                    <RevealOnScroll effect="slide" delay={0.3} duration={1}>
-                      <div className="mt-12 flex justify-center">
-                        <Link 
-                          to="/products" 
-                          className="inline-block"
-                        >
-                          <Button 
-                            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
-                          >
-                            View All Products
-                          </Button>
-                        </Link>
-                      </div>
-                    </RevealOnScroll>
+                  <div className="mt-12 flex justify-center">
+                    <Link 
+                      to="/products" 
+                      className="inline-block"
+                    >
+                      <Button 
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+                      >
+                        View All Products
+                      </Button>
+                    </Link>
                   </div>
-                </section>
-              </RevealOnScroll>
+                </div>
+              </section>
 
-              {/* <RevealOnScroll effect="slide">
-                <BlogSection />
-              </RevealOnScroll> */}
-
-              {/* <RevealOnScroll effect="rotate" direction="left" duration={1}>
-                <NewsPreview />
-              </RevealOnScroll> */}
-
-              <RevealOnScroll effect="scale" direction="right" duration={1.2}>
-                <YouTubeSection />
-              </RevealOnScroll>
-
-              <RevealOnScroll effect="flip" direction="up" duration={1.5}>
-                <ContactSection />
-              </RevealOnScroll>
-
+              <YouTubeSection />
+              <ContactSection />
             </Suspense>
           </main>
 

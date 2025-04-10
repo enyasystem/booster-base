@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useToast } from "@/components/ui/use-toast";
 import Navigation from '@/components/Navigation';
@@ -100,38 +99,63 @@ const Contact = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-6">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact & Support</h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Get in touch with our team. We're here to help with any questions or concerns.
-          </p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact</h1>
         </div>
       </section>
 
       {/* Contact Information */}
       <section className="py-12 px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-sm">
-            <Phone className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-lg font-semibold mb-2">Phone</h3>
-            <p className="text-muted-foreground text-center">+234 803 891 3567</p>
+        <div className="max-w-7xl mx-auto mb-16">
+          <div className="text-center mb-12">
+            <p className="text-lg mb-6">
+              THIS FORM CAN BE USED FOR MAKING ENQUIRIES, QUOTATIONS, AND SUBMITTING PROPOSALS AND PREFERENCES
+            </p>
+            <p className="text-muted-foreground mb-6">
+              If you are coming to see us, you may let us know via the contact form. You can also come to see us following the map directions above and the address below or contact us using the telephone lines listed.
+            </p>
           </div>
-          
-          <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-sm">
-            <Mail className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-lg font-semibold mb-2">Email</h3>
-            <p className="text-muted-foreground text-center">info@boosterbaseng.com</p>
-          </div>
-          
-          <div className="flex flex-col items-center p-6 bg-card rounded-lg shadow-sm">
-            <MapPin className="w-10 h-10 text-primary mb-4" />
-            <h3 className="text-lg font-semibold mb-2">Office</h3>
-            <p className="text-muted-foreground text-center">Lagos, Nigeria</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* Map Section */}
+            <div className="w-full h-[400px] rounded-lg overflow-hidden">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.8147220796797!2d8.876387!3d9.962264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x105373947c9e53d7%3A0x6eb6bf2e93e5b95f!2sFarin%20Gada%20Rd%2C%20Barakin%20Yampita%2C%20Plateau!5e0!3m2!1sen!2sng!4v1680000000000!5m2!1sen!2sng"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+
+            {/* Contact Details */}
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Address</h3>
+                <p className="text-muted-foreground">
+                  JETS Shopping Complex, adjacent ECWA Theological Seminary<br />
+                  Farin Gada, Jos, Plateau State, Nigeria
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Phone</h3>
+                <p className="text-muted-foreground">+234 803 891 3567</p>
+                <p className="text-muted-foreground">+234 802 828 9711</p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Email</h3>
+                <p className="text-muted-foreground">info@boosterbaseng.com</p>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Contact Form */}
         <div className="max-w-2xl mx-auto bg-card p-8 rounded-lg shadow-sm">
-          <h2 className="text-2xl font-semibold mb-6">Send us a message</h2>
+          <h2 className="text-2xl font-semibold mb-6">Contact Form</h2>
           
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -140,9 +164,9 @@ const Contact = () => {
                 name="full_name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Full Name</FormLabel>
+                    <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="John Doe" {...field} />
+                      <Input placeholder="Enter name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -156,42 +180,26 @@ const Contact = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="john@example.com" {...field} />
+                      <Input type="email" placeholder="Enter email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone (Optional)</FormLabel>
-                      <FormControl>
-                        <Input placeholder="+234..." {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="company"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Company (Optional)</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Your company" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+              <FormField
+                control={form.control}
+                name="company"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Subject</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter subject" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
               <FormField
                 control={form.control}
@@ -201,7 +209,7 @@ const Contact = () => {
                     <FormLabel>Message</FormLabel>
                     <FormControl>
                       <Textarea 
-                        placeholder="How can we help you?" 
+                        placeholder="Your message" 
                         className="min-h-[150px]"
                         {...field}
                       />

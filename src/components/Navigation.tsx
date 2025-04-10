@@ -217,8 +217,8 @@ const Navigation = () => {
                 <span>Logout</span>
               </button>
             ) : (
-              <Link to="/auth" className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200">
-                Login
+              <Link to="/auth" className="px-6 py-2  text-white rounded-md hover:bg-blue-700 transition-colors duration-200">
+               {/* Login */}
               </Link>
             )}
           </div>

@@ -1,4 +1,3 @@
-
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,39 +5,91 @@ import { BookOpen, Users, Clock, Award } from 'lucide-react';
 import RegistrationForm from '@/components/training/RegistrationForm';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import TrainingGallery from '@/components/training/TrainingGallery';
+import TeamGallery from '@/components/training/TeamGallery';
+
+const teamData = {
+  // director: {
+  //   image: '/images/training/director.jpg',
+  //   name: 'John Doe',
+  //   message: 'Our commitment to excellence in training and development helps shape the future of technology professionals. We take pride in our hands-on approach and the success of our trainees.',
+  //   title: 'Director of Training Programs'
+  // },
+  photos: [
+    {
+      id: '1',
+      url: '/images/training/Booster Base Trainee with instructors1.jpg',
+      caption: 'Cloud Computing Batch 2025',
+      description: 'Graduation ceremony of our cloud computing specialists'
+    },
+    {
+      id: '2',
+      url: '/images/training/Booster Base Trainee with instructors.jpg',
+      caption: 'Data Science Workshop',
+      description: 'Hands-on workshop with industry experts'
+    },
+  ]
+};
 
 const Training = () => {
   const [showForm, setShowForm] = useState(false);
   
   const courses = [
+    // {
+    //   title: "Network Administration",
+    //   duration: "12 weeks",
+    //   participants: "10-15 students",
+    //   certification: "CompTIA Network+ Certification",
+    //   description: "Master network administration and security fundamentals."
+    // },
+    // {
+    //   title: "Software Development",
+    //   duration: "16 weeks",
+    //   participants: "12-15 students",
+    //   certification: "Full Stack Developer Certificate",
+    //   description: "Learn modern web development with latest technologies."
+    // },
+    // {
+    //   title: "Cloud Computing",
+    //   duration: "8 weeks",
+    //   participants: "8-12 students",
+    //   certification: "AWS Associate Certificate",
+    //   description: "Understand cloud infrastructure and DevOps practices."
+    // },
+    // {
+    //   title: "Data Science & Analytics",
+    //   duration: "10 weeks",
+    //   participants: "8-12 students",
+    //   certification: "Data Analyst Certificate",
+    //   description: "Learn to analyze and visualize data to drive business decisions."
+    // }
+  ];
+
+  const trainingImages = [
     {
-      title: "Network Administration",
-      duration: "12 weeks",
-      participants: "10-15 students",
-      certification: "CompTIA Network+ Certification",
-      description: "Master network administration and security fundamentals."
+      id: '1',
+      url: '/images/training/image1.jpg',
+      caption: 'Advanced React Workshop - Spring 2025',
+      date: 'April 15, 2025',
     },
     {
-      title: "Software Development",
-      duration: "16 weeks",
-      participants: "12-15 students",
-      certification: "Full Stack Developer Certificate",
-      description: "Learn modern web development with latest technologies."
+      id: '2',
+      url: '/images/training/image2.jpg',
+      caption: 'Introduction to Cloud Computing - Summer 2025',
+      date: 'June 10, 2025',
     },
     {
-      title: "Cloud Computing",
-      duration: "8 weeks",
-      participants: "8-12 students",
-      certification: "AWS Associate Certificate",
-      description: "Understand cloud infrastructure and DevOps practices."
+      id: '3',
+      url: '/images/training/image3.jpg',
+      caption: 'Data Science Bootcamp - Fall 2025',
+      date: 'September 20, 2025',
     },
     {
-      title: "Data Science & Analytics",
-      duration: "10 weeks",
-      participants: "8-12 students",
-      certification: "Data Analyst Certificate",
-      description: "Learn to analyze and visualize data to drive business decisions."
-    }
+      id: '4',
+      url: '/images/training/image4.jpg',
+      caption: 'Cybersecurity Essentials - Winter 2025',
+      date: 'January 15, 2026',
+    },
   ];
 
   return (
@@ -140,6 +191,22 @@ const Training = () => {
                   <p className="text-muted-foreground">Receive industry-recognized certificates upon completion</p>
                 </div>
               </div>
+            </div>
+          </section>
+
+          {/* Team & Leadership Showcase */}
+          <section className="py-16 px-6 bg-white">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-3xl font-bold text-center mb-12 text-blue-900">Our Training Community</h2>
+              <TeamGallery director={teamData.director} photos={teamData.photos} />
+            </div>
+          </section>
+
+          {/* Training Gallery */}
+          <section className="py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-3xl font-bold text-center mb-8">Training Moments</h2>
+              <TrainingGallery images={trainingImages} />
             </div>
           </section>
         </>

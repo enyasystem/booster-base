@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 
@@ -40,7 +39,8 @@ const Footer = () => {
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-1" />
-                <span>JETS Shopping Complex, Jos, Plateau State</span>
+                <span>JETS Shopping Complex, adjacent ECWA Theological Seminary
+                Farin Gada, Jos, Plateau State, Nigeria</span>
               </li>
             </ul>
           </div>
@@ -63,6 +63,11 @@ const Footer = () => {
         
         <div className="border-t border-primary-foreground/20 pt-8 text-center text-sm text-primary-foreground/80">
           <p>© {currentYear} Booster Base Nigeria Limited. All rights reserved.</p>
+          <div className="mt-2">
+            <Link to="/privacy-policy" className="hover:text-accent transition-colors mx-2">Privacy Policy</Link>
+            <span>|</span>
+            <Link to="/terms-of-use" className="hover:text-accent transition-colors mx-2">Terms of Use</Link>
+          </div>
         </div>
       </div>
     </footer>
