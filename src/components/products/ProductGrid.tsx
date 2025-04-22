@@ -32,7 +32,12 @@ const ProductGrid = ({ products, isLoading }: ProductGridProps) => {
     addToCart({
       id: product.id,
       name: product.name,
-      price_range: product.price_range,
+      price_range: <a 
+      href="tel:+2348038913567" 
+      className="flex items-center gap-1 text-lg font-bold text-blue-600 hover:text-blue-800"
+    >
+      📞 Call now
+    </a>,
       image_url: product.image_url,
     }, false); // Pass false to not show cart automatically
     
@@ -75,9 +80,12 @@ const ProductGrid = ({ products, isLoading }: ProductGridProps) => {
               <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
               <p className="text-muted-foreground mb-4 flex-grow">{product.description}</p>
               <div className="mt-auto space-y-4">
-                <span className="text-primary font-medium block">
-                  {formatPrice(product.price_range)}
-                </span>
+                <a 
+                  href="tel:+2348038913567" 
+                  className="flex items-center gap-1 text-lg font-bold text-blue-600 hover:text-blue-800"
+                >
+                  📞 Call now
+                </a>
                 <div className="flex gap-2">
                   {/* <Button 
                     variant="outline" 

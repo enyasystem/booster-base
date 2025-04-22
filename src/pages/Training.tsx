@@ -9,25 +9,37 @@ import TrainingGallery from '@/components/training/TrainingGallery';
 import TeamGallery from '@/components/training/TeamGallery';
 
 const teamData = {
-  // director: {
-  //   image: '/images/training/director.jpg',
-  //   name: 'John Doe',
-  //   message: 'Our commitment to excellence in training and development helps shape the future of technology professionals. We take pride in our hands-on approach and the success of our trainees.',
-  //   title: 'Director of Training Programs'
-  // },
   photos: [
     {
       id: '1',
       url: '/images/training/Booster Base Trainee with instructors1.jpg',
-      caption: 'Cloud Computing Batch 2025',
-      description: 'Graduation ceremony of our cloud computing specialists'
+      caption: 'Python Programming Batch 2024',
+      description: 'Celebrating the achievements of our Python programming graduates with instructors.'
     },
     {
       id: '2',
       url: '/images/training/Booster Base Trainee with instructors.jpg',
-      caption: 'Data Science Workshop',
-      description: 'Hands-on workshop with industry experts'
+      caption: 'Computer Application Batch 2024',
+      description: 'Interactive workshop featuring hands-on training with industry professionals.'
     },
+    {
+      id: '3',
+      url: '/Training Lab.jpg',
+      caption: 'Training Lab (Featuring whiteboard and projector tools)',
+      description: 'A glimpse of our state-of-the-art training lab equipped with modern teaching tools.'
+    },
+    {
+      id: '4',
+      url: '/Training Lab1.jpg',
+      caption: 'Training Lab (Desktops and seating arrangement)',
+      description: 'An overview of our well-organized training lab designed for collaborative learning.'
+    },
+    {
+      id: '5',
+      url: 'https://th.bing.com/th/id/OIP.Y6JvzQUuqy4vaSnOjwxm4gHaEb?rs=1&pid=ImgDetMain', // Drone-related Unsplash image
+      caption: 'Drone Flying Workshop',
+      description: 'Hands-on training session on drone flying and aerial photography.'
+    }
   ]
 };
 
@@ -35,34 +47,34 @@ const Training = () => {
   const [showForm, setShowForm] = useState(false);
   
   const courses = [
-    // {
-    //   title: "Network Administration",
-    //   duration: "12 weeks",
-    //   participants: "10-15 students",
-    //   certification: "CompTIA Network+ Certification",
-    //   description: "Master network administration and security fundamentals."
-    // },
-    // {
-    //   title: "Software Development",
-    //   duration: "16 weeks",
-    //   participants: "12-15 students",
-    //   certification: "Full Stack Developer Certificate",
-    //   description: "Learn modern web development with latest technologies."
-    // },
-    // {
-    //   title: "Cloud Computing",
-    //   duration: "8 weeks",
-    //   participants: "8-12 students",
-    //   certification: "AWS Associate Certificate",
-    //   description: "Understand cloud infrastructure and DevOps practices."
-    // },
-    // {
-    //   title: "Data Science & Analytics",
-    //   duration: "10 weeks",
-    //   participants: "8-12 students",
-    //   certification: "Data Analyst Certificate",
-    //   description: "Learn to analyze and visualize data to drive business decisions."
-    // }
+    {
+      title: "Computer Application",
+      duration: "10 weeks",
+      participants: "10-15 students",
+      certification: "Microsoft Office Specialist Certification",
+      description: "Comprehensive training in computer applications and productivity tools."
+    },
+    {
+      title: "Web Design and Programming",
+      duration: "14 weeks",
+      participants: "12-15 students",
+      certification: "Certified Web Designer",
+      description: "Learn modern web design principles and programming techniques."
+    },
+    {
+      title: "Python",
+      duration: "6 weeks",
+      participants: "8-12 students",
+      certification: "Python Programming Certificate",
+      description: "Master Python programming for data analysis and automation."
+    },
+    {
+      title: "Drone Flying",
+      duration: "4 weeks",
+      participants: "5-10 students",
+      certification: "Certified Drone Pilot",
+      description: "Learn the fundamentals of drone operation, safety, and aerial photography."
+    }
   ];
 
   const trainingImages = [
@@ -90,6 +102,7 @@ const Training = () => {
       caption: 'Cybersecurity Essentials - Winter 2025',
       date: 'January 15, 2026',
     },
+  
   ];
 
   return (
@@ -102,19 +115,16 @@ const Training = () => {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10 z-0"
           style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1519389950473-47ba0277781c)' }}
         ></div>
-        
         <div className="max-w-7xl mx-auto relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-blue-900">Professional Training Programs</h1>
-          <p className="text-xl text-blue-700 max-w-3xl">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-blue-900 text-center">Professional Training Programs</h1>
+          <p className="text-xl text-blue-700 max-w-3xl mx-auto text-center">
             Advance your career with our industry-focused training programs. Learn from experienced professionals and gain practical skills.
           </p>
-          <Button 
-            size="lg" 
-            className="mt-8 bg-blue-700 hover:bg-blue-800"
-            onClick={() => setShowForm(!showForm)}
-          >
-            {showForm ? 'View Available Courses' : 'Register for a Course'}
-          </Button>
+          <div className="flex justify-center mt-8">
+            <Button size="lg" className="bg-blue-700 hover:bg-blue-800 text-white px-8 py-3 text-lg rounded-lg shadow-lg transition-all duration-300" onClick={() => setShowForm(true)}>
+              Register Now
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -132,11 +142,11 @@ const Training = () => {
               <h2 className="text-3xl font-bold text-center mb-12 text-blue-900">Available Courses</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {courses.map((course, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow duration-300 border-t-4 border-blue-500">
+                  <Card key={index} className="flex flex-col h-full min-h-[420px]">
                     <CardHeader>
                       <CardTitle>{course.title}</CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    <CardContent className="flex flex-col flex-1 space-y-4">
                       <p className="text-muted-foreground">{course.description}</p>
                       <div className="space-y-2">
                         <div className="flex items-center gap-2 text-sm">
@@ -152,12 +162,11 @@ const Training = () => {
                           <span>{course.certification}</span>
                         </div>
                       </div>
-                      <button 
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition-colors"
-                        onClick={() => setShowForm(true)}
-                      >
-                        Register Now
-                      </button>
+                      <div className="flex justify-center mt-auto">
+                        <Button className="bg-blue-700 hover:bg-blue-800 text-white w-full" onClick={() => setShowForm(true)}>
+                          Register Now
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 ))}
@@ -198,7 +207,7 @@ const Training = () => {
           <section className="py-16 px-6 bg-white">
             <div className="max-w-7xl mx-auto">
               <h2 className="text-3xl font-bold text-center mb-12 text-blue-900">Our Training Community</h2>
-              <TeamGallery director={teamData.director} photos={teamData.photos} />
+              <TeamGallery photos={teamData.photos} />
             </div>
           </section>
 

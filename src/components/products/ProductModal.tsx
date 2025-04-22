@@ -50,8 +50,12 @@ const ProductModal = ({ product, isOpen, onClose }: ProductModalProps) => {
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold">{product.name}</DialogTitle>
           <DialogDescription className="text-lg text-blue-600 font-semibold">
-            ₦{product.price_range}
-          </DialogDescription>
+          <a 
+                  href="tel:+2348038913567" 
+                  className="flex items-center gap-1 text-lg font-bold text-blue-600 hover:text-blue-800"
+                >
+                  📞 Call now
+                </a>          </DialogDescription>
         </DialogHeader>
 
         <motion.div
@@ -101,13 +105,13 @@ const ProductModal = ({ product, isOpen, onClose }: ProductModalProps) => {
 
           {/* Action Buttons */}
           <div className="flex gap-4 pt-4">
-            <Button
+            {/* <Button
               className="flex-1 bg-blue-600 hover:bg-blue-700"
               onClick={handleAddToCart}
             >
               <ShoppingCart className="mr-2 h-4 w-4" />
               Add to Cart
-            </Button>
+            </Button> */}
             <Button
               variant="outline"
               className="flex-1"

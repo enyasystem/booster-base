@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
@@ -33,7 +32,18 @@ const AuthForm = () => {
           password,
         });
         if (error) throw error;
-        navigate('/');
+        // Check if user is admin after login
+        const { data: userRoles } = await supabase
+          .from('user_roles')
+          .select('*')
+          .eq('user_id', (await supabase.auth.getUser()).data.user.id)
+          .eq('role', 'admin')
+          .maybeSingle();
+        if (userRoles) {
+          navigate('/admin');
+        } else {
+          navigate('/');
+        }
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');

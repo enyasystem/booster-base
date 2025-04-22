@@ -19,64 +19,34 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
   {
-    id: 1,
-    name: "Sarah Johnson",
-    role: "Software Developer",
-    image: "/testimonials/student1.jpg",
-    quote: "The training at Booster Base transformed my career. The practical approach and industry-relevant curriculum helped me secure my dream job.",
-    rating: 5,
-    course: "Full Stack Development",
-    company: "Microsoft Nigeria"
-  },
-  {
-    id: 2,
-    name: "Michael Okonkwo",
-    role: "Network Engineer",
-    image: "/testimonials/student2.jpg",
-    quote: "The hands-on experience with enterprise networking equipment was invaluable. The instructors are highly knowledgeable and supportive.",
-    rating: 5,
-    course: "Network Administration",
-    company: "MTN Nigeria"
-  },
-  {
-    id: 3,
-    name: "Amina Ibrahim",
-    role: "Cybersecurity Analyst",
-    image: "/testimonials/student3.jpg",
-    quote: "Booster Base's cybersecurity program provided me with real-world skills and certifications that set me apart in the job market.",
-    rating: 5,
-    course: "Cybersecurity Fundamentals",
-    company: "Access Bank"
-  },
-  {
     id: 4,
-    name: "David Adeleke",
-    role: "Cloud Solutions Architect",
+    name: "David Adamu",
+    role: "IT Specialist",
     image: "/testimonials/student4.jpg",
-    quote: "The AWS certification training was comprehensive and practical. I'm now leading cloud migration projects at my organization.",
+    quote: "The Computer Application course gave me the skills to streamline processes and improve efficiency in my organization.",
     rating: 5,
-    course: "AWS Cloud Architecture",
-    company: "Flutterwave"
+    course: "Computer Application",
+    company: ""
   },
   {
     id: 5,
     name: "Grace Oluwaseun",
-    role: "Data Scientist",
+    role: "Web Designer",
     image: "/testimonials/student5.jpg",
-    quote: "The data science bootcamp exceeded my expectations. The project-based learning approach helped me build a strong portfolio.",
+    quote: "The Web Design program was hands-on and creative. I now design user-friendly websites for top clients.",
     rating: 5,
-    course: "Data Science Bootcamp",
-    company: "Paystack"
+    course: "Web Design",
+    company: ""
   },
   {
     id: 6,
     name: "Hassan Mohammed",
-    role: "DevOps Engineer",
+    role: "Python Developer",
     image: "/testimonials/student6.jpg",
-    quote: "Learning DevOps practices and tools at Booster Base was a game-changer. The real-world projects prepared me for industry challenges.",
+    quote: "The Programming Python course was transformative. I can now build scalable applications with ease.",
     rating: 5,
-    course: "DevOps Engineering",
-    company: "Interswitch"
+    course: "Programming Python",
+    company: ""
   }
 ];
 

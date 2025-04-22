@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -10,10 +11,12 @@ import ProductForm from '@/components/admin/products/ProductForm';
 import ProductsTable from '@/components/admin/products/ProductsTable';
 import { useAuth } from '@/hooks/useAuth';
 import { AccessDenied } from '@/components/admin/AccessDenied';
-import { PostgrestError } from '@supabase/supabase-js';
-import { Category } from '@/types/products';
 
-type DatabaseError = PostgrestError | Error;
+interface Category {
+  id: string;
+  name: string;
+  slug?: string;
+}
 
 const ProductManagement = () => {
   const { checkIsAdmin } = useAuth();
@@ -32,60 +35,53 @@ const ProductManagement = () => {
     verifyAdmin();
   }, [checkIsAdmin]);
 
-  const fetchProducts = async () => {
-    try {
-      const { data: cats } = await supabase.from('categories').select('*');
-      console.log('Categories available:', cats);
-
-      const { data, error } = await supabase
-        .from('products')
-        .select(`
-          *,
-          category:category_id(id, name, slug)
-        `)
-        .order('created_at', { ascending: false });
-      
-      if (error) {
-        throw error;
-      }
-
-      console.log('Products fetched:', data);
-      return data || []; // Ensure we always return an array
-    } catch (error: unknown) {
-      const dbError = error as DatabaseError;
-      console.error('Error fetching products:', dbError);
-      toast({
-        title: "Error",
-        description: `Failed to fetch products: ${dbError.message}`,
-        variant: "destructive",
-      });
-      return []; // Return empty array on error
-    }
-  };
-
-  const { data: products = [], isLoading, error, refetch } = useQuery({
+  const { data: products, isLoading, error, refetch } = useQuery({
     queryKey: ['admin-products'],
-    queryFn: fetchProducts,
-    enabled: isAdmin,
-    initialData: [] // Provide initial data
+    queryFn: async () => {
+      try {
+        const { data, error } = await supabase
+          .from('products')
+          .select('*, service_categories(*)')
+          .order('created_at', { ascending: false });
+        
+        if (error) throw error;
+        return data;
+      } catch (error: any) {
+        console.error("Error fetching products:", error);
+        throw new Error(`Failed to fetch products: ${error.message}`);
+      }
+    },
+    enabled: isAdmin
   });
 
-  const { data: categories } = useQuery<Category[]>({
-    queryKey: ['product-categories'],
+  // Simplified category fetching that doesn't involve user roles or try to create categories
+  const { data: dbCategories, isLoading: categoriesLoading } = useQuery({
+    queryKey: ['service-categories'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('categories')
-        .select('*')
-        .order('name');
-      
-      if (error) throw error;
-      // Log available categories and their IDs
-      console.log('Available categories:', data?.map(c => ({
-        id: c.id,
-        name: c.name,
-        slug: c.slug
-      })));
-      return data;
+      try {
+        console.log("Fetching product categories...");
+        
+        const { data, error } = await supabase
+          .from('service_categories')
+          .select('*')
+          .order('name');
+        
+        if (error) {
+          console.error("Error fetching categories:", error);
+          throw error;
+        }
+        
+        console.log("Categories fetched:", data);
+        return data || [];
+      } catch (error: any) {
+        console.error("Error with categories:", error);
+        toast({
+          title: "Error",
+          description: `Failed to load categories: ${error.message}`,
+          variant: "destructive"
+        });
+        return [];
+      }
     },
     enabled: isAdmin
   });
@@ -118,7 +114,7 @@ const ProductManagement = () => {
         </Button>
       </div>
 
-      {isLoading ? (
+      {isLoading || categoriesLoading ? (
         <Card>
           <CardContent className="p-6">
             <div className="h-[400px] flex items-center justify-center">
@@ -143,7 +139,7 @@ const ProductManagement = () => {
               description: "Product deleted successfully",
             });
           }}
-          categories={categories || []}
+          categories={dbCategories || []}
         />
       )}
 
@@ -158,7 +154,7 @@ const ProductManagement = () => {
             description: "Product created successfully",
           });
         }}
-        categories={categories || []}
+        categories={dbCategories || []}
       />
     </div>
   );

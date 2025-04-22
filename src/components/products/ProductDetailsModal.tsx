@@ -58,7 +58,12 @@ const ProductDetailsModal = ({ product, isOpen, onClose, onAddToCart }: ProductD
           )}
           <div className="flex items-center justify-between mt-4">
             <span className="text-lg font-semibold text-primary">
-              {formatPrice(product.price_range)}
+            <a 
+                  href="tel:+2348038913567" 
+                  className="flex items-center gap-1 text-lg font-bold text-blue-600 hover:text-blue-800"
+                >
+                  📞 Call now
+                </a>
             </span>
             {/* <Button onClick={() => onAddToCart(product)}>
               <ShoppingCart className="w-4 h-4 mr-2" />

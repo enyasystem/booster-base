@@ -40,3 +40,23 @@
 .read-the-docs {
   color: #888;
 }
+
+.sidebar-toggler {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  background-color: rgb(219, 51, 51)c69;
+  color: white;
+  border: none;
+  font-size: 24px;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1100;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-toggler:hover {
+  background-color: #e23838;
+}

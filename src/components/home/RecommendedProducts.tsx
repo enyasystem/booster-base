@@ -15,6 +15,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import ProductModal from '../products/ProductModal';
+import { useProductContext } from "@/context/ProductContext";
 
 // Define the Product type
 interface Product {
@@ -33,6 +34,7 @@ const RecommendedProducts = () => {
   const { toast } = useToast();
   const { addToCart } = useCartContext();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const { setProducts: setGlobalProducts } = useProductContext();
   
   // Initialize carousel with autoplay plugin
   const [emblaRef] = useEmblaCarousel({ 
@@ -56,6 +58,7 @@ const RecommendedProducts = () => {
 
         if (error) throw error;
         setProducts(data || []);
+        setGlobalProducts(data || []);
       } catch (error) {
         console.error("Error fetching recommended products:", error);
         toast({
@@ -69,7 +72,7 @@ const RecommendedProducts = () => {
     };
 
     fetchFeaturedProducts();
-  }, [toast]);
+  }, [toast, setGlobalProducts]);
 
   const handleAddToCart = (product: Product) => {
     // Set showCart to false to prevent auto-popup
@@ -82,13 +85,23 @@ const RecommendedProducts = () => {
     
     toast({
       title: "Added to Cart",
-      description: `${product.name} has been added to your cart.`,
+      description: `<a 
+                  href="tel:+2348038913567" 
+                  className="flex items-center gap-1 text-lg font-bold text-blue-600 hover:text-blue-800"
+                >
+                  📞 Call now
+                </a> has been added to your cart.`,
     });
   };
 
   const formatCurrency = (price: string) => {
     // Format price as Naira
-    return `₦${price}`;
+    return `<a 
+                  href="tel:+2348038913567" 
+                  className="flex items-center gap-1 text-lg font-bold text-blue-600 hover:text-blue-800"
+                >
+                  📞 Call now
+                </a>`;
   };
 
   if (isLoading) {
@@ -145,7 +158,12 @@ const RecommendedProducts = () => {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-lg font-bold">{product.name}</CardTitle>
                   <CardDescription className="text-blue-600 font-semibold">
-                    ₦{product.price_range}
+                  <a 
+  href="tel:+2348038913567" 
+  className="flex items-center gap-1 text-lg font-bold text-blue-600 hover:text-blue-800"
+>
+  📞 Call now
+</a>
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex-grow">
@@ -159,12 +177,12 @@ const RecommendedProducts = () => {
                   >
                     Learn More
                   </Button>
-                  <Button 
-                    className="bg-blue-600 hover:bg-blue-700"
-                    onClick={() => handleAddToCart(product)}
-                  >
-                    <ShoppingCart className="h-4 w-4" />
-                  </Button>
+                  {/* <Button  */}
+                    {/* // className="bg-blue-600 hover:bg-blue-700"
+                    // onClick={() => handleAddToCart(product)}
+                  > */}
+                    {/* <ShoppingCart className="h-4 w-4" /> */}
+                  {/* </Button> */}
                 </CardFooter>
               </Card>
             </CarouselItem>

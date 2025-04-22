@@ -12,9 +12,10 @@ import {
   TableRow 
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { Loader2, CheckCircle, XCircle } from 'lucide-react';
+import { Loader2, CheckCircle, XCircle, Trash2 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { format } from 'date-fns';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 interface TrainingRegistration {
   id: string;
@@ -32,6 +33,9 @@ interface TrainingRegistration {
 const TrainingRegistrations = () => {
   const { toast } = useToast();
   const [reviewingId, setReviewingId] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [registrationToDelete, setRegistrationToDelete] = useState<TrainingRegistration | null>(null);
 
   const { data: registrations, isLoading, error, refetch } = useQuery({
     queryKey: ['trainingRegistrations'],
@@ -71,6 +75,43 @@ const TrainingRegistrations = () => {
       });
     } finally {
       setReviewingId(null);
+    }
+  };
+
+  const confirmDelete = (registration: TrainingRegistration) => {
+    setRegistrationToDelete(registration);
+    setShowDeleteDialog(true);
+  };
+
+  const deleteRegistration = async () => {
+    if (!registrationToDelete) return;
+    
+    setDeletingId(registrationToDelete.id);
+    try {
+      const { error } = await (supabase as any)
+        .from('training_registrations')
+        .delete()
+        .eq('id', registrationToDelete.id);
+
+      if (error) throw error;
+      
+      toast({
+        title: 'Success',
+        description: 'Registration deleted successfully',
+      });
+      
+      refetch();
+      setShowDeleteDialog(false);
+    } catch (error) {
+      console.error('Error deleting registration:', error);
+      toast({
+        title: 'Error',
+        description: 'Could not delete registration',
+        variant: 'destructive',
+      });
+    } finally {
+      setDeletingId(null);
+      setRegistrationToDelete(null);
     }
   };
 
@@ -142,18 +183,32 @@ const TrainingRegistrations = () => {
                     )}
                   </TableCell>
                   <TableCell className="text-right">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      disabled={registration.is_reviewed || reviewingId === registration.id}
-                      onClick={() => markAsReviewed(registration.id)}
-                    >
-                      {reviewingId === registration.id ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                      ) : (
-                        'Mark as Reviewed'
-                      )}
-                    </Button>
+                    <div className="flex justify-end gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        disabled={registration.is_reviewed || reviewingId === registration.id}
+                        onClick={() => markAsReviewed(registration.id)}
+                      >
+                        {reviewingId === registration.id ? (
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                        ) : (
+                          'Mark as Reviewed'
+                        )}
+                      </Button>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        disabled={deletingId === registration.id}
+                        onClick={() => confirmDelete(registration)}
+                      >
+                        {deletingId === registration.id ? (
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                        ) : (
+                          <Trash2 className="h-4 w-4" />
+                        )}
+                      </Button>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
@@ -168,6 +223,35 @@ const TrainingRegistrations = () => {
           </p>
         </div>
       )}
+
+      <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm Deletion</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete the registration from {registrationToDelete?.name}? 
+              This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex space-x-2 justify-end">
+            <Button variant="outline" onClick={() => setShowDeleteDialog(false)}>
+              Cancel
+            </Button>
+            <Button 
+              variant="destructive" 
+              onClick={deleteRegistration}
+              disabled={deletingId !== null}
+            >
+              {deletingId ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <Trash2 className="h-4 w-4 mr-2" />
+              )}
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -25,6 +25,7 @@ import { useToast } from '@/components/ui/use-toast';
 import ProductForm from './ProductForm';
 import { PostgrestError } from '@supabase/supabase-js';
 import { Product, Category } from '@/types/products';
+import { useProductContext } from "@/context/ProductContext";
 
 interface ProductsTableProps {
   products: Product[];
@@ -44,6 +45,13 @@ const ProductsTable = ({
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [deletingProduct, setDeletingProduct] = useState<Product | null>(null);
   const { toast } = useToast();
+  const { setProducts } = useProductContext();
+
+  // Helper to refresh products from DB and update context
+  const refreshProducts = async () => {
+    const { data, error } = await supabase.from('products').select('*');
+    if (!error) setProducts(data || []);
+  };
 
   const handleDelete = async () => {
     if (!deletingProduct) return;
@@ -56,6 +64,7 @@ const ProductsTable = ({
       
       if (error) throw error;
       
+      await refreshProducts(); // <-- update context after delete
       onProductDeleted();
     } catch (error: unknown) {
       const dbError = error as DatabaseError;
@@ -68,6 +77,12 @@ const ProductsTable = ({
     } finally {
       setDeletingProduct(null);
     }
+  };
+
+  // When a product is edited or added, also refresh products
+  const handleProductUpdated = async () => {
+    await refreshProducts();
+    onProductUpdated();
   };
 
   return (
@@ -133,10 +148,7 @@ const ProductsTable = ({
         <ProductForm
           isOpen={!!editingProduct}
           onClose={() => setEditingProduct(null)}
-          onSuccess={() => {
-            setEditingProduct(null);
-            onProductUpdated();
-          }}
+          onSuccess={handleProductUpdated} // <-- use new handler
           product={editingProduct}
           categories={categories}
         />

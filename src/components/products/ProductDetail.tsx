@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
+import { useProductContext } from "@/context/ProductContext";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { useCartContext } from '@/components/cart/CartProvider';
 import { Button } from '@/components/ui/button';
@@ -26,35 +28,34 @@ const productFeatures = {
 };
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
+  const { products } = useProductContext();
   const { toast } = useToast();
   const { addToCart } = useCartContext();
-  const [isLoading, setIsLoading] = useState(true);
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState(() => products.find(p => p.id === id));
+  const [loading, setLoading] = useState(!product);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Simulate API call to fetch product details
-    const fetchProduct = async () => {
-      setIsLoading(true);
-      try {
-        // In production, replace this with actual API call
-        const foundProduct = recommendedProducts.find(p => p.id === id);
-        setProduct(foundProduct);
-      } catch (error) {
-        toast({
-          title: "Error",
-          description: "Failed to load product details",
-          variant: "destructive",
+    if (!product && id) {
+      setLoading(true);
+      supabase
+        .from("products")
+        .select("*")
+        .eq("id", id)
+        .single()
+        .then(({ data, error }) => {
+          if (error || !data) {
+            setError("Product not found");
+          } else {
+            setProduct(data);
+          }
+          setLoading(false);
         });
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    }
+  }, [id, product]);
 
-    fetchProduct();
-  }, [id]);
-
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -70,10 +71,10 @@ const ProductDetail = () => {
     );
   }
 
-  if (!product) {
+  if (error || !product) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-16 text-center">
-        <h2 className="text-2xl font-bold">Product not found</h2>
+        <h2 className="text-2xl font-bold">{error || "Product not found"}</h2>
       </div>
     );
   }
@@ -94,7 +95,12 @@ const ProductDetail = () => {
         <div className="space-y-6">
           <h1 className="text-3xl font-bold">{product.name}</h1>
           <p className="text-2xl font-semibold text-blue-600">
-            ₦{product.price_range}
+          <a 
+                  href="tel:+2348038913567" 
+                  className="flex items-center gap-1 text-lg font-bold text-blue-600 hover:text-blue-800"
+                >
+                  📞 Call now
+                </a>
           </p>
           <p className="text-gray-600">{product.description}</p>
 
@@ -134,12 +140,17 @@ const ProductDetail = () => {
               onClick={() => addToCart({
                 id: product.id,
                 name: product.name,
-                price_range: product.price_range,
+                price_range: <a 
+                href="tel:+2348038913567" 
+                className="flex items-center gap-1 text-lg font-bold text-blue-600 hover:text-blue-800"
+              >
+                📞 Call now
+              </a>,
                 image_url: product.image_url,
               }, true)}
             >
               <ShoppingCart className="mr-2 h-4 w-4" />
-              Add to Cart
+              {/* Add to Cart */}
             </Button>
             <Button
               variant="outline"

@@ -39,8 +39,8 @@ const Footer = () => {
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-1" />
-                <span>JETS Shopping Complex, adjacent ECWA Theological Seminary
-                Farin Gada, Jos, Plateau State, Nigeria</span>
+                <span>No. 1 Hwoll, Behind Vochmal Petro Station, Zaria Road,</span>
+                <span> Farin Gada, Jos, Plateau State, Nigeria</span>
               </li>
             </ul>
           </div>

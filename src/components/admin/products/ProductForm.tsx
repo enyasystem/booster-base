@@ -1,61 +1,54 @@
+
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
-import { Label } from "@/components/ui/label";
 import { Loader2, Upload } from 'lucide-react';
-import { PostgrestError } from '@supabase/supabase-js';
-import { StorageError } from '@supabase/storage-js';
-import { Product, Category } from '@/types/products';
+
+interface Category {
+  id: string;
+  name: string;
+  slug?: string;
+}
 
 interface ProductFormProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
   categories: Category[];
-  product?: Product;
+  product?: any;
 }
 
-// Define a schema that matches the database requirements
+// Define a schema that matches the database requirements, making description and image optional
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  description: z.string().min(10, { message: "Description must be at least 10 characters." }),
+  description: z.string().optional(), // Made optional
   price_range: z.string().min(1, { message: "Price range is required." }),
   category_id: z.string().min(1, { message: "Category is required." }),
   is_featured: z.boolean().default(false),
-  image_url: z.string().optional(),
+  image_url: z.string().optional(), // Made optional
   features: z.array(z.string()).default([]),
 });
 
 type ProductFormValues = z.infer<typeof formSchema>;
-
-type DatabaseError = PostgrestError | Error;
-type FileUploadError = StorageError | Error;
-
-interface ProductFormData {
-  name: string;
-  description: string;
-  price_range: string;
-  category_id: string;
-  image_url?: string;
-  is_featured: boolean;
-  features: string[];
-}
 
 const ProductForm = ({ isOpen, onClose, onSuccess, categories, product }: ProductFormProps) => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [featureInput, setFeatureInput] = useState('');
   const [isUploading, setIsUploading] = useState(false);
+
+  // Debug: Log categories when rendered
+  console.log('Categories passed to ProductForm:', categories);
 
   const defaultValues: ProductFormValues = product ? {
     ...product,
@@ -88,9 +81,12 @@ const ProductForm = ({ isOpen, onClose, onSuccess, categories, product }: Produc
       const filePath = `products/${fileName}`;
       
       // Upload the file to Supabase Storage
-      const { error: uploadError } = await supabase.storage
+      const { error: uploadError, data } = await supabase.storage
         .from('images')
-        .upload(filePath, file);
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
       
       if (uploadError) {
         throw uploadError;
@@ -107,12 +103,11 @@ const ProductForm = ({ isOpen, onClose, onSuccess, categories, product }: Produc
         title: "Image uploaded successfully",
         description: "Your image has been uploaded and will be used for this product."
       });
-    } catch (error: unknown) {
-      const uploadError = error as FileUploadError;
-      console.error('Upload error:', uploadError);
+    } catch (error: any) {
+      console.error('Upload error:', error);
       toast({
         title: "Upload failed",
-        description: "There was an error uploading your image. Please try again.",
+        description: `There was an error uploading your image: ${error.message}`,
         variant: "destructive"
       });
     } finally {
@@ -123,50 +118,50 @@ const ProductForm = ({ isOpen, onClose, onSuccess, categories, product }: Produc
   const handleSubmit = async (values: ProductFormValues) => {
     setIsSubmitting(true);
     try {
-      const selectedCategory = categories.find(c => c.id === values.category_id);
-      console.log('Form submission:', {
-        values,
-        selectedCategory,
-        allCategories: categories
-      });
-      
-      if (!selectedCategory) {
-        throw new Error('Invalid category selected');
-      }
-
+      // Ensure price range includes Naira symbol
       const formattedValues = {
-        name: values.name,
-        description: values.description,
-        price_range: values.price_range.replace(/\$/g, '₦'),
-        category_id: selectedCategory.id, // Ensure the correct ID is used
-        image_url: values.image_url || null,
-        is_featured: values.is_featured,
-        features: values.features || []
+        ...values,
+        price_range: values.price_range.includes('₦') ? values.price_range : `₦${values.price_range}`
       };
 
-      console.log('Submitting to database:', formattedValues);
-
-      const { data, error } = await supabase
-        .from('products')
-        .insert([formattedValues])
-        .select()
-        .single();
+      console.log('Saving product with values:', formattedValues);
       
-      if (error) throw error;
+      if (product) {
+        // Update existing product
+        const { error } = await supabase
+          .from('products')
+          .update(formattedValues)
+          .eq('id', product.id);
+        
+        if (error) throw error;
+      } else {
+        // Create new product
+        const { error } = await supabase
+          .from('products')
+          .insert({
+            name: formattedValues.name,
+            description: formattedValues.description || null, // Handle null for optional field
+            price_range: formattedValues.price_range,
+            category_id: formattedValues.category_id,
+            features: formattedValues.features,
+            is_featured: formattedValues.is_featured,
+            image_url: formattedValues.image_url || null // Handle null for optional field
+          });
+        
+        if (error) throw error;
+      }
       
-      console.log('Created product:', data);
-      onSuccess();
-
-    } catch (error: unknown) {
-      const dbError = error as DatabaseError;
-      console.error('Full error details:', {
-        error: dbError,
-        formValues: values,
-        selectedCategory: categories.find(c => c.id === values.category_id)
+      toast({
+        title: product ? "Product Updated" : "Product Created",
+        description: `Product has been ${product ? "updated" : "created"} successfully.`,
       });
+      
+      onSuccess();
+    } catch (error: any) {
+      console.error('Error saving product:', error);
       toast({
         title: "Error",
-        description: `Failed to save product: ${dbError.message}`,
+        description: `Failed to save product: ${error.message}`,
         variant: "destructive",
       });
     } finally {
@@ -192,6 +187,10 @@ const ProductForm = ({ isOpen, onClose, onSuccess, categories, product }: Produc
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{product ? 'Edit Product' : 'Add New Product'}</DialogTitle>
+          <DialogDescription>
+            Fill out the form below to {product ? 'update' : 'create'} a product. 
+            Only name, price range, and category are required.
+          </DialogDescription>
         </DialogHeader>
         
         <Form {...form}>
@@ -201,7 +200,7 @@ const ProductForm = ({ isOpen, onClose, onSuccess, categories, product }: Produc
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Name <span className="text-red-500">*</span></FormLabel>
                   <FormControl>
                     <Input placeholder="Product name" {...field} />
                   </FormControl>
@@ -217,7 +216,7 @@ const ProductForm = ({ isOpen, onClose, onSuccess, categories, product }: Produc
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Product description" {...field} />
+                    <Textarea placeholder="Product description (optional)" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -229,9 +228,17 @@ const ProductForm = ({ isOpen, onClose, onSuccess, categories, product }: Produc
               name="price_range"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Price Range (₦)</FormLabel>
+                  <FormLabel>Price Range (₦) <span className="text-red-500">*</span></FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g. ₦10,000-₦50,000" {...field} />
+                    <Input 
+                      placeholder="e.g. 10,000-50,000" 
+                      {...field} 
+                      onChange={(e) => {
+                        // Remove any existing Naira symbols to prevent duplication
+                        const value = e.target.value.replace(/₦/g, '');
+                        field.onChange(value);
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -243,7 +250,7 @@ const ProductForm = ({ isOpen, onClose, onSuccess, categories, product }: Produc
               name="category_id"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Category</FormLabel>
+                  <FormLabel>Category <span className="text-red-500">*</span></FormLabel>
                   <Select 
                     onValueChange={field.onChange} 
                     defaultValue={field.value}
@@ -254,11 +261,17 @@ const ProductForm = ({ isOpen, onClose, onSuccess, categories, product }: Produc
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {categories.map((category) => (
-                        <SelectItem key={category.id} value={category.id}>
-                          {category.name}
-                        </SelectItem>
-                      ))}
+                      {categories && categories.length > 0 ? (
+                        categories.map((category) => (
+                          <SelectItem key={category.id} value={category.id}>
+                            {category.name}
+                          </SelectItem>
+                        ))
+                      ) : (
+                        <div className="p-2 text-center text-muted-foreground">
+                          No categories available
+                        </div>
+                      )}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -267,7 +280,7 @@ const ProductForm = ({ isOpen, onClose, onSuccess, categories, product }: Produc
             />
             
             <div className="space-y-2">
-              <FormLabel>Upload Image</FormLabel>
+              <FormLabel>Upload Image (Optional)</FormLabel>
               <div className="border-2 border-dashed border-gray-300 rounded-md p-6">
                 <div className="flex flex-col items-center justify-center">
                   {isUploading ? (
@@ -327,7 +340,7 @@ const ProductForm = ({ isOpen, onClose, onSuccess, categories, product }: Produc
             />
             
             <div className="space-y-2">
-              <FormLabel>Features</FormLabel>
+              <FormLabel>Features (Optional)</FormLabel>
               <div className="flex">
                 <Input
                   value={featureInput}
@@ -359,7 +372,10 @@ const ProductForm = ({ isOpen, onClose, onSuccess, categories, product }: Produc
               <Button type="button" variant="outline" onClick={onClose}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={isSubmitting || isUploading}>
+              <Button 
+                type="submit" 
+                disabled={isSubmitting || isUploading}
+              >
                 {isSubmitting ? 'Saving...' : product ? 'Update Product' : 'Create Product'}
               </Button>
             </div>

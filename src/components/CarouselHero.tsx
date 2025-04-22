@@ -15,7 +15,7 @@ const carouselData = [
   {
     title: "Enterprise Solutions",
     description: "Custom solutions for businesses of all sizes",
-    image: "/vsat.jpg",
+    image: "/AI_Brain.jpg",
     link: "/enterprise",
     linkText: "Learn More"
   },

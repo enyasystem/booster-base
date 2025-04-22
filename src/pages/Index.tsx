@@ -110,7 +110,7 @@ const Index = () => {
               "description": "Leading ICT solutions provider in Nigeria",
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "JETS Shopping Complex, Farin Gada",
+                "streetAddress": "No. 1 Hwoll, Behind Vochmal Petro Station, Zaria Road, Farin Gada",
                 "addressLocality": "Jos",
                 "addressRegion": "Plateau State",
                 "addressCountry": "Nigeria"
@@ -144,7 +144,7 @@ const Index = () => {
         <Navigation />
         
         {/* Modified layout container */}
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-[1fr,300px] pt-16 w-full">
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-[1fr] pt-16 w-full">
           {/* Main content area */}
           <main className="w-full overflow-x-hidden">
             <CarouselHero />
@@ -188,9 +188,9 @@ const Index = () => {
           </main>
 
           {/* Sidebar */}
-          <aside className="hidden lg:block sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto">
+          {/* <aside className="hidden lg:block sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto">
             <ProductSidebar />
-          </aside>
+          </aside> */}
         </div>
 
         <Footer />

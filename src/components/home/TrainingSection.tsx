@@ -8,22 +8,22 @@ const TrainingSection = () => {
 
   const courses = [
     {
-      title: "Network Administration",
-      duration: "12 weeks",
-      certification: "CompTIA Network+ Certification",
-      description: "Comprehensive network administration and security training."
+      title: "Computer Application",
+      duration: "10 weeks",
+      certification: "Microsoft Office Specialist Certification",
+      description: "Comprehensive training in computer applications and productivity tools."
     },
     {
-      title: "Software Development",
-      duration: "16 weeks",
-      certification: "Full Stack Developer Certificate",
-      description: "Modern web development with latest technologies."
+      title: "Web Design and Programming",
+      duration: "14 weeks",
+      certification: "Certified Web Designer",
+      description: "Learn modern web design principles and programming techniques."
     },
     {
-      title: "Cloud Computing",
-      duration: "8 weeks",
-      certification: "AWS Associate Certificate",
-      description: "Cloud infrastructure and DevOps practices."
+      title: "Python",
+      duration: "6 weeks",
+      certification: "Python Programming Certificate",
+      description: "Master Python programming for data analysis and automation."
     }
   ];
 
@@ -38,7 +38,7 @@ const TrainingSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {courses.map((course) => (
-            <Card key={course.title} className="flex flex-col">
+            <Card key={course.title} className="flex flex-col h-full">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Book className="w-5 h-5" />
@@ -51,14 +51,13 @@ const TrainingSection = () => {
                   <p><strong>Duration:</strong> {course.duration}</p>
                   <p><strong>Certification:</strong> {course.certification}</p>
                 </div>
-                <div className="mt-auto">
-                  <Button 
-                    className="w-full"
-                    onClick={handleNavigateToTraining}
-                  >
-                    Register Now
-                  </Button>
-                </div>
+                <div className="flex-grow" />
+                <Button 
+                  className="w-full mt-4"
+                  onClick={handleNavigateToTraining}
+                >
+                  Register Now
+                </Button>
               </CardContent>
             </Card>
           ))}

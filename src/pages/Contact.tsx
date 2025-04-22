@@ -134,7 +134,7 @@ const Contact = () => {
               <div>
                 <h3 className="text-xl font-semibold mb-2">Address</h3>
                 <p className="text-muted-foreground">
-                  JETS Shopping Complex, adjacent ECWA Theological Seminary<br />
+                No. 1 Hwoll, Behind Vochmal Petro Station, Zaria Road,<br />
                   Farin Gada, Jos, Plateau State, Nigeria
                 </p>
               </div>

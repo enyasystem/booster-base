@@ -135,7 +135,7 @@ const Services = () => {
           </Link>
         </div>
       ),
-      imageUrl: "/hardware.jpg"
+      imageUrl: "/slider-4.jpg"
     }
   ];
 

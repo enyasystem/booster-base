@@ -34,14 +34,6 @@ const About = () => {
       ]
     },
     {
-      id: 2,
-      full_name: 'Omoh, Monday Uchenna',
-      position: 'Admin/Program Development',
-      qualifications: [
-        'B.Sc. Computer Science (Nnamdi Azikiwe University)'
-      ]
-    },
-    {
       id: 3,
       full_name: 'Princess Josephine O. Bebeyi',
       position: 'Director, Training and Learning Institute',
@@ -51,7 +43,7 @@ const About = () => {
     },
     {
       id: 4,
-      full_name: 'Kayode D. Ajayi',
+      full_name: 'Grace Abiodun',
       position: 'Chief Technical Officer',
       qualifications: [
         'CCNA (CISCO Certified Network Associate)',
