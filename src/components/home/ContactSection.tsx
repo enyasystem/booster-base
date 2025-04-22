@@ -19,7 +19,7 @@ const ContactSection = () => {
                 <div className="aspect-video w-full rounded-lg overflow-hidden">
                   <iframe
                     title="Office Location"
-                    src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3817.8344171204117!2d8.854360365298266!3d9.958444165382174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sNo.%201%20Hwoll%2C%20Behind%20Vochmal%20Petro%20Station%2C%20Zaria%20Road%2C%20Farin%20Gada%2C%20Jos%20Plateau%20State!5e0!3m2!1sen!2sng!4v1744388937617!5m2!1sen!2sng" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3817.8344171204117!2d8.854360365298266!3d9.958444165382174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sNo.%201%20Hwoll%2C%20Behind%20Vochmal%20Petro%20Station%2C%20Zaria%20Road%2C%20Farin%20Gada%2C%20Jos%20Plateau%20State!5e0!3m2!1sen!2sng!4v1744388937617!5m2!1sen!2sng"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}

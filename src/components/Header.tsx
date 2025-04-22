@@ -16,42 +16,42 @@ const navItems = [
   {
     title: 'About Us',
     path: '/about',
-    dropdown: [
-      { title: 'Our History', path: '/about#history' },
-      { title: 'Our Team', path: '/about#team' },
-      { title: 'Core Values', path: '/about#values' },
-      { title: 'Our Mission', path: '/about#mission' },
-    ]
+    // dropdown: [
+    //   { title: 'Our History', path: '/about#history' },
+    //   { title: 'Our Team', path: '/about#team' },
+    //   { title: 'Core Values', path: '/about#values' },
+    //   { title: 'Our Mission', path: '/about#mission' },
+    // ]
   },
   {
     title: 'Services',
     path: '/services',
-    dropdown: [
-      { title: 'IT Consulting', path: '/services#consulting' },
-      { title: 'Software Development', path: '/services#software' },
-      { title: 'Network Solutions', path: '/services#network' },
-      { title: 'Cybersecurity', path: '/services#security' },
-    ]
+    // dropdown: [
+    //   { title: 'IT Consulting', path: '/services#consulting' },
+    //   { title: 'Software Development', path: '/services#software' },
+    //   { title: 'Network Solutions', path: '/services#network' },
+    //   { title: 'Cybersecurity', path: '/services#security' },
+    // ]
   },
   {
     title: 'Training',
     path: '/training',
-    dropdown: [
-      { title: 'IT Fundamentals', path: '/training#fundamentals' },
-      { title: 'Professional Certifications', path: '/training#certifications' },
-      { title: 'Corporate Training', path: '/training#corporate' },
-      { title: 'Online Courses', path: '/training#online' },
-    ]
+    // dropdown: [
+    //   { title: 'IT Fundamentals', path: '/training#fundamentals' },
+    //   { title: 'Professional Certifications', path: '/training#certifications' },
+    //   { title: 'Corporate Training', path: '/training#corporate' },
+    //   { title: 'Online Courses', path: '/training#online' },
+    // ]
   },
   {
     title: 'Products',
     path: '/products',
-    dropdown: [
-      { title: 'Hardware', path: '/products?category=hardware' },
-      { title: 'Software', path: '/products?category=software' },
-      { title: 'Network Equipment', path: '/products?category=network' },
-      { title: 'Accessories', path: '/products?category=accessories' },
-    ]
+    // dropdown: [
+    //   { title: 'Hardware', path: '/products?category=hardware' },
+    //   { title: 'Software', path: '/products?category=software' },
+    //   { title: 'Network Equipment', path: '/products?category=network' },
+    //   { title: 'Accessories', path: '/products?category=accessories' },
+    // ]
   },
   {
     title: 'Contact',

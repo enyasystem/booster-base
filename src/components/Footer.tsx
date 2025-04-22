@@ -48,7 +48,7 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
             <div className="flex gap-4">
-              <a href="#" className="hover:text-accent transition-colors" aria-label="Facebook">
+              <a href="https://facebook.com/boosterbasenigeria" className="hover:text-accent transition-colors" aria-label="Facebook">
                 <Facebook className="w-5 h-5" />
               </a>
               <a href="#" className="hover:text-accent transition-colors" aria-label="Twitter">

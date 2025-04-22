@@ -143,12 +143,14 @@ const Training = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {courses.map((course, index) => (
                   <Card key={index} className="flex flex-col h-full min-h-[420px]">
-                    <CardHeader>
-                      <CardTitle>{course.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex flex-col flex-1 space-y-4">
-                      <p className="text-muted-foreground">{course.description}</p>
-                      <div className="space-y-2">
+                    <div className="flex-0">
+                      <CardHeader className="pb-2">
+                        <CardTitle>{course.title}</CardTitle>
+                      </CardHeader>
+                    </div>
+                    <CardContent className="flex flex-col flex-1">
+                      <p className="text-muted-foreground mb-4">{course.description}</p>
+                      <div className="space-y-2 mb-4">
                         <div className="flex items-center gap-2 text-sm">
                           <Clock className="w-4 h-4 text-blue-600" />
                           <span>{course.duration}</span>
@@ -162,7 +164,7 @@ const Training = () => {
                           <span>{course.certification}</span>
                         </div>
                       </div>
-                      <div className="flex justify-center mt-auto">
+                      <div className="mt-auto flex items-end">
                         <Button className="bg-blue-700 hover:bg-blue-800 text-white w-full" onClick={() => setShowForm(true)}>
                           Register Now
                         </Button>

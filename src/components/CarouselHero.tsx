@@ -41,13 +41,13 @@ const CarouselHero = () => {
       >
         {carouselData.map((slide, index) => (
           <SwiperSlide key={index}>
-            <div className="relative flex flex-col md:flex-row h-full">
+            <div className="relative flex flex-col-reverse md:flex-row h-full w-full">
               {/* Text Content */}
-              <div className="relative flex-1 flex flex-col justify-center px-6 md:px-12 lg:px-20 text-white z-10">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">
+              <div className="relative w-full md:w-2/5 flex flex-col justify-center px-4 md:px-8 lg:px-12 py-8 md:py-0 text-white z-10 bg-gradient-to-t md:bg-none from-blue-900/80 via-blue-900/60 to-transparent">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">
                   {slide.title}
                 </h1>
-                <p className="text-lg md:text-xl mb-8 text-blue-100 max-w-xl">
+                <p className="text-base sm:text-lg md:text-xl mb-8 text-blue-100 max-w-xl">
                   {slide.description}
                 </p>
                 <Link to={slide.link}>
@@ -58,13 +58,13 @@ const CarouselHero = () => {
               </div>
 
               {/* Image */}
-              <div className="absolute md:relative inset-0 md:flex-1">
+              <div className="relative w-full md:w-3/5 h-64 md:h-full flex items-center justify-center overflow-hidden">
                 <img
                   src={slide.image}
                   alt={slide.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover md:rounded-none rounded-t-lg md:rounded-l-lg transition-all duration-300"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-blue-900/50 md:from-blue-900 md:to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-900/30 to-blue-900/0 pointer-events-none"></div>
               </div>
             </div>
           </SwiperSlide>

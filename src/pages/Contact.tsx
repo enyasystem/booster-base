@@ -14,7 +14,6 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { supabase } from "@/integrations/supabase/client";
 import { Phone, Mail, MapPin, Loader2 } from "lucide-react";
 
 // Define interface for contact submission
@@ -57,30 +56,30 @@ const Contact = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
-      // Create a submission object that matches our interface
-      // Explicitly construct the object to ensure required fields are present
-      const submission: ContactSubmission = {
-        full_name: values.full_name,
-        email: values.email,
-        message: values.message,
-        phone: values.phone || undefined,
-        company: values.company || undefined,
-        type: 'general',
-        status: 'new'
-      };
-
-      const { error } = await supabase
-        .from('service_inquiries')  // Use existing service_inquiries table instead
-        .insert(submission);
-
-      if (error) throw error;
-
-      toast({
-        title: "Message sent successfully!",
-        description: "We'll get back to you as soon as possible.",
+      // Send form data to Formspree
+      const response = await fetch("https://formspree.io/f/movdqqll", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          name: values.full_name,
+          email: values.email,
+          subject: values.company,
+          message: values.message
+        })
       });
-      
-      form.reset();
+      const data = await response.json();
+      if (data.ok || response.status === 200) {
+        toast({
+          title: "Message sent successfully!",
+          description: "We'll get back to you as soon as possible.",
+        });
+        form.reset();
+      } else {
+        throw new Error("Formspree error");
+      }
     } catch (error) {
       toast({
         title: "Error sending message",
