@@ -48,6 +48,11 @@
     }
   }
 
+  @keyframes spin-slow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
   body {
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
     font-family: 'SF Pro Display', system-ui, sans-serif;
@@ -119,5 +124,13 @@
       transform: translateY(0);
       opacity: 1;
     }
+  }
+
+  .animate-float {
+    animation: float 2.2s ease-in-out infinite;
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 2.5s linear infinite;
   }
 }

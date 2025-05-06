@@ -60,3 +60,156 @@
 .sidebar-toggler:hover {
   background-color: #e23838;
 }
+
+/* Pulsing animation for the application button */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34,197,94,0.7);
+    transform: scale(1);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(34,197,94,0);
+    transform: scale(1.07);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34,197,94,0);
+    transform: scale(1);
+  }
+}
+
+.apply-training-btn {
+  background: linear-gradient(90deg, #facc15, #f59e42, #facc15);
+  color: #222;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  margin-left: 1rem;
+  animation: glow 1.5s infinite alternate;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 2px 16px rgba(250,204,21,0.15);
+  border: none;
+  outline: none;
+  display: inline-block;
+  font-size: 1rem;
+}
+.apply-training-btn:hover {
+  background: linear-gradient(90deg, #f59e42, #facc15);
+  color: #fff;
+  transform: scale(1.08) rotate(-2deg);
+}
+@keyframes glow {
+  0% { box-shadow: 0 0 0 0 #facc15aa; }
+  100% { box-shadow: 0 0 16px 8px #facc1544; }
+}
+
+/* Floating Action Button (FAB) for Apply Now */
+.fab-apply-training {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 10000;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  box-shadow: 0 8px 32px rgba(34,197,94,0.25), 0 2px 8px rgba(0,0,0,0.10);
+  animation: bounce 1.2s infinite alternate;
+  transition: background 0.2s, transform 0.2s;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.fab-apply-training:hover {
+  background: linear-gradient(90deg, #16a34a, #22c55e);
+  transform: scale(1.08) rotate(-2deg);
+}
+@keyframes bounce {
+  0% { transform: translateY(0) scale(1); }
+  60% { transform: translateY(-8px) scale(1.05); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 768px) {
+  .fab-apply-training {
+    right: 1rem;
+    left: 1rem;
+    bottom: 1rem;
+    width: auto;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    justify-content: center;
+  }
+}
+
+/* --- DEMO ANIMATIONS FOR APPLY BUTTON --- */
+@keyframes pulse-demo {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 #2563eb44; }
+  70% { transform: scale(1.07); box-shadow: 0 0 0 10px #2563eb22; }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 #2563eb44; }
+}
+.demo-apply-pulse {
+  animation: pulse-demo 1.5s infinite;
+}
+
+@keyframes glow-demo {
+  0% { box-shadow: 0 0 0 0 #6366f1; }
+  100% { box-shadow: 0 0 24px 8px #6366f1; }
+}
+.demo-apply-glow {
+  animation: glow-demo 1.6s alternate infinite;
+}
+
+@keyframes color-shift-demo {
+  0% { background: linear-gradient(90deg, #2563eb, #6366f1); }
+  50% { background: linear-gradient(90deg, #6366f1, #2563eb); }
+  100% { background: linear-gradient(90deg, #2563eb, #6366f1); }
+}
+.demo-apply-color-shift {
+  animation: color-shift-demo 3s linear infinite;
+}
+
+@keyframes slide-in-demo {
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.demo-apply-slide-in {
+  animation: slide-in-demo 0.7s cubic-bezier(.4,2,.6,1) 1;
+}
+
+@keyframes wiggle-demo {
+  0%, 100% { transform: rotate(0deg); }
+  15% { transform: rotate(-7deg); }
+  30% { transform: rotate(7deg); }
+  45% { transform: rotate(-7deg); }
+  60% { transform: rotate(7deg); }
+  75% { transform: rotate(-7deg); }
+}
+.demo-apply-wiggle:hover {
+  animation: wiggle-demo 0.5s;
+}
+
+.demo-apply-underline {
+  position: relative;
+  overflow: hidden;
+}
+.demo-apply-underline::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 3px;
+  background: #6366f1;
+  transform: scaleX(0);
+  transition: transform 0.3s cubic-bezier(.4,2,.6,1);
+  transform-origin: left;
+}
+.demo-apply-underline:hover::after {
+  transform: scaleX(1);
+}
+
+.demo-apply-icon-pulse svg {
+  animation: pulse-demo 1.5s infinite;
+}

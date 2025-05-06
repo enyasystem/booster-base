@@ -178,7 +178,16 @@ const Navigation = () => {
                 )}
               </div>
             ))}
-            
+            {/* Animated Apply Button */}
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLScFk7zpJBawWw0Np3yhJSmvNLJhEPktv4XTrJ3ebzlSKFbX4A/viewform?embedded=true&pli=1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="apply-training-btn"
+              style={{ textShadow: '0 2px 8px rgba(0,0,0,0.12)' }}
+            >
+              Apply for Government Training
+            </a>
             <button 
               onClick={toggleCart}
               className="relative p-2 text-white/90 hover:text-white transition-colors"
@@ -222,7 +231,7 @@ const Navigation = () => {
               </button>
             ) : (
               <Link to="/auth" className="px-6 py-2 text-white rounded-md hover:bg-blue-700 transition-colors duration-200">
-                {/* Login */}
+                Login
               </Link>
             )}
           </div>
@@ -284,6 +293,16 @@ const Navigation = () => {
                 )}
               </div>
             ))}
+            {/* Animated Apply Button for Mobile */}
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLScFk7zpJBawWw0Np3yhJSmvNLJhEPktv4XTrJ3ebzlSKFbX4A/viewform?embedded=true&pli=1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="apply-training-btn block text-center mt-2"
+              style={{ textShadow: '0 2px 8px rgba(0,0,0,0.12)' }}
+            >
+              Apply for Government Training
+            </a>
             
             {isAdmin && (
               <Link to="/admin" className="block py-2 font-medium text-blue-300">Admin</Link>
@@ -298,7 +317,7 @@ const Navigation = () => {
                 <span>Logout</span>
               </button>
             ) : (
-              <Link to="/auth" className="block w-full px-6 py-2 bg-blue-600 text-white text-center rounded-md hover:bg-blue-700 transition-colors duration-200">
+              <Link to="/auth" className="block w-full px-6 py-2  text-white text-center rounded-md hover:bg-blue-700 transition-colors duration-200">
                  {/* Login */}
               </Link>
             )}

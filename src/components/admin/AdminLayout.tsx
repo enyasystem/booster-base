@@ -86,7 +86,7 @@ const AdminLayout = () => {
           You must login as admin before you can access this page.
         </p>
         <Button onClick={() => navigate('/auth')}>
-          Login
+          {/* Login */}
         </Button>
       </div>
     );

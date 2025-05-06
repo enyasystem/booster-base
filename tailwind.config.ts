@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -8,6 +7,15 @@ export default {
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
+  ],
+  safelist: [
+    'demo-apply-pulse',
+    'demo-apply-glow',
+    'demo-apply-color-shift',
+    'demo-apply-slide-in',
+    'demo-apply-wiggle',
+    'demo-apply-underline',
+    'demo-apply-icon-pulse'
   ],
   theme: {
     extend: {

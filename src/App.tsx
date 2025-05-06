@@ -29,6 +29,7 @@ import TermsOfUse from './pages/TermsOfUse';
 import Enterprise from './pages/Enterprise';
 import { ProductProvider, useProductContext } from "@/context/ProductContext";
 import { supabase } from "@/integrations/supabase/client";
+import DemoApplyButtonAnimations from './pages/DemoApplyButtonAnimations';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -85,6 +86,7 @@ const App = () => (
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                   <Route path="/terms-of-use" element={<TermsOfUse />} />
                   <Route path="/enterprise" element={<Enterprise />} />
+                  <Route path="/demo-apply-animations" element={<DemoApplyButtonAnimations />} />
                   <Route path="/admin" element={<AdminLayout />}>
                     <Route index element={<AdminDashboard />} />
                     <Route path="products" element={<ProductManagement />} />
