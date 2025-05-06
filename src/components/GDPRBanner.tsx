@@ -26,15 +26,15 @@ const GDPRBanner: React.FC<GDPRBannerProps> = ({ className }) => {
   return (
     <div className={`fixed bottom-0 left-0 right-0 bg-background border-t z-50 shadow-lg animate-slide-in ${className}`}>
       <div className="max-w-7xl mx-auto p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-sm text-muted-foreground">
-          We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.{' '}
+        {/* <p className="text-sm text-muted-foreground"> */}
+          {/* We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.{' '}
           <a href="/privacy" className="text-primary hover:underline">Learn more</a>
-        </p>
+        </p> */}
         <div className="flex gap-4">
-          <Button onClick={acceptCookies} variant="default">Accept</Button>
-          <Button onClick={() => setIsVisible(false)} variant="ghost">
+          {/* <Button onClick={acceptCookies} variant="default">Accept</Button> */}
+          {/* <Button onClick={() => setIsVisible(false)} variant="ghost"> */}
             <X className="w-4 h-4" />
-          </Button>
+          {/* </Button> */}
         </div>
       </div>
     </div>

@@ -30,18 +30,19 @@ const carouselData = [
 
 const CarouselHero = () => {
   return (
-    <div className="relative w-full h-[600px] md:h-[700px] bg-gradient-to-r from-blue-900 to-blue-800">
+    <div className="relative w-full bg-gradient-to-r from-blue-900 to-blue-800 flex items-center justify-center mt-0" style={{ minHeight: 0 }}>
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         navigation
         pagination={{ clickable: true }}
         autoplay={{ delay: 5000 }}
         loop={true}
-        className="h-full"
+        className="w-full h-full"
+        style={{ minHeight: 0 }}
       >
         {carouselData.map((slide, index) => (
           <SwiperSlide key={index}>
-            <div className="relative flex flex-col-reverse md:flex-row h-full w-full">
+            <div className="relative flex flex-col-reverse md:flex-row w-full h-full items-stretch">
               {/* Text Content */}
               <div className="relative w-full md:w-2/5 flex flex-col justify-center px-4 md:px-8 lg:px-12 py-8 md:py-0 text-white z-10 bg-gradient-to-t md:bg-none from-blue-900/80 via-blue-900/60 to-transparent">
                 <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">
@@ -58,12 +59,12 @@ const CarouselHero = () => {
               </div>
 
               {/* Image */}
-              <div className="relative w-full md:w-3/5 h-64 md:h-full flex items-center justify-center overflow-hidden bg-blue-950">
+              <div className="relative w-full md:w-3/5 flex items-center justify-center overflow-hidden bg-blue-950 p-0 m-0 h-full min-h-0">
                 <img
                   src={slide.image}
                   alt={slide.title}
-                  className="w-auto h-full max-h-[90%] object-contain md:rounded-none rounded-t-lg md:rounded-l-lg transition-all duration-300 bg-blue-950 mx-auto"
-                  style={{ background: '#0f172a' }}
+                  className="w-full h-full object-contain md:rounded-none rounded-t-lg md:rounded-l-lg transition-all duration-300 bg-blue-950 mx-auto p-0 m-0"
+                  style={{ background: '#0f172a', objectPosition: 'center', maxHeight: '100%', maxWidth: '100%' }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-900/30 to-blue-900/0 pointer-events-none"></div>
               </div>

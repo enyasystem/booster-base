@@ -301,7 +301,7 @@ const Navigation = () => {
               className="apply-training-btn block text-center mt-2"
               style={{ textShadow: '0 2px 8px rgba(0,0,0,0.12)' }}
             >
-              Apply for Government Training
+              {/* Apply for Government Training */}
             </a>
             
             {isAdmin && (

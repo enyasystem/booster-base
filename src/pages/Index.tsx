@@ -82,6 +82,7 @@ const Index = () => {
       <AnimatePresence mode="wait">
         {isLoading && <LoadingScreen />}
       </AnimatePresence>
+    
       
       <div className="relative min-h-screen flex flex-col">
         <Helmet>
@@ -144,9 +145,9 @@ const Index = () => {
         <Navigation />
         
         {/* Modified layout container */}
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-[1fr] pt-16 w-full">
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-[1fr] w-full">
           {/* Main content area */}
-          <main className="w-full overflow-x-hidden">
+          <main className="w-full overflow-x-hidden pt-[72px] md:pt-[112px]">
             <CarouselHero />
             <Suspense fallback={<SectionLoader />}>
               <CoreValues />
