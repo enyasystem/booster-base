@@ -6,6 +6,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useCartContext } from '@/components/cart/CartProvider';
 import { toast } from '@/components/ui/use-toast';
 import { useProductContext } from "@/context/ProductContext";
+import logo from '../../logo.png';
 
 // Define navigation menu items
 const navItems = [
@@ -76,7 +77,7 @@ const Navigation = () => {
 
       <header
         className={`fixed w-full z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-indigo-900/95 backdrop-blur-sm shadow-sm' : 'bg-indigo-900/80 backdrop-blur-sm'
+          isScrolled ? 'bg-indigo-900/95 backdrop-blur-sm shadow-md' : 'bg-indigo-900/80 backdrop-blur-sm'
         }`}
       >
         <div className="max-w-7xl mx-auto">
@@ -94,8 +95,9 @@ const Navigation = () => {
 
           {/* Main navigation */}
           <nav className="flex items-center justify-between px-6 py-4">
-            <Link to="/" className="text-2xl font-bold text-white">
-              Booster Base
+            <Link to="/" className="flex items-center gap-2 text-2xl font-bold text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+              <img src={logo} alt="Booster Base Logo" className="h-12 w-12 object-contain" />
+              <span>Booster Base</span>
             </Link>
 
             {/* Desktop menu */}
@@ -104,9 +106,15 @@ const Navigation = () => {
                 <Link
                   key={index}
                   to={item.path}
-                  className={`nav-link${location.pathname === item.path ? ' nav-link-active' : ''}`}
+                  className={`relative nav-link group transition-colors duration-200 px-1 py-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400
+                    ${location.pathname === item.path ? 'nav-link-active text-blue-300 font-semibold' : 'text-white/90 hover:text-blue-300'}
+                  `}
                 >
-                  {item.title}
+                  <span className="inline-block">
+                    {item.title}
+                    <span className={`absolute left-0 -bottom-0.5 w-full h-0.5 bg-blue-400 rounded transition-transform duration-300 origin-left
+                      ${location.pathname === item.path ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+                  </span>
                 </Link>
               ))}
               {/* Animated Apply Button */}

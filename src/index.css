@@ -72,11 +72,19 @@
   }
 
   .nav-link {
-    @apply relative px-4 py-2 rounded-md transition-colors duration-200 font-medium text-white/90 hover:bg-blue-700 hover:text-white;
+    @apply relative px-4 py-2 rounded-md transition-colors duration-200 font-medium text-white/90 hover:bg-blue-700/30 hover:text-white;
+    position: relative;
+    outline: none;
+  }
+
+  /* Remove underline effect */
+  .nav-link span > span {
+    display: none !important;
   }
 
   .nav-link-active {
-    @apply bg-blue-800 text-white shadow font-bold;
+    @apply bg-blue-800/30 text-white font-bold;
+    box-shadow: none;
   }
 
   .nav-dropdown {
