@@ -87,7 +87,7 @@ const About = () => {
             <p>
               Booster Base Nigeria Limited was registered with Corporate Affairs Commission of Nigeria in 2009.
               The Company established her headquarters in Jos, Plateau State, Nigeria in the same year and started 
-              operation in 2010. The company has been running as Bbase International, an enterprise since 2003.
+              operation in 2010. The company has been running as Bbase International, an enterprise since 2009.
             </p>
           </div>
         </div>

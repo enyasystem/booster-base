@@ -31,7 +31,7 @@ const Hero = () => {
               <div>
                 <p className="mt-10 text-lg sm:text-xl text-blue-100">
                   Booster Base delivers cutting-edge ICT solutions and engineering services, 
-                  helping businesses thrive in the digital age since 2003.
+                  helping businesses thrive in the digital age since 2009.
                 </p>
               </div>
               

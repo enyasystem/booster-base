@@ -4,7 +4,7 @@ import Timeline from "@/components/ui/timeline";
 const CompanyHistory = () => {
   const milestones = [
     {
-      year: 2003,
+      year: 2009,
       title: "Company Founded",
       description: "Started operations as a technology solutions provider"
     },
