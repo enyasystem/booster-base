@@ -14,7 +14,8 @@ const Hero = () => {
               opacity: 0.2
             }}></div>
             
-            <div className="relative z-10">
+            {/* Limit hero text width and center */}
+            <div className="relative z-10 max-w-xl mx-auto">
               <div>
                 <span className="inline-block py-1 px-3 rounded-full text-sm font-medium bg-blue-500/20 text-blue-200">
                   Leading ICT & Engineering Solutions
@@ -66,16 +67,15 @@ const Hero = () => {
             </div>
           </div>
           
-          <div className="hidden md:block h-screen">
-            <div>
+          <div className="hidden md:flex h-screen items-center justify-center p-8">
+            <div className="relative w-full max-w-2xl h-[70vh] flex items-center justify-center">
               <img 
-                src="https://images.unsplash.com/photo-1579403124614-197f69d8187b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                src="https://images.unsplash.com/photo-1579403124614-197f69d8187b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" 
                 alt="Digital Transformation" 
-                className="w-full h-full object-cover"
-                style={{
-                  clipPath: 'polygon(0% 0%, 100% 0%, 100% 90%, 75% 100%, 0% 100%)',
-                }}
+                className="w-full h-full object-cover rounded-xl shadow-lg border border-blue-900 bg-blue-950"
+                style={{ objectPosition: 'center top' }}
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 to-transparent pointer-events-none rounded-xl" />
             </div>
           </div>
         </div>

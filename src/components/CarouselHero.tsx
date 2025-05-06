@@ -58,11 +58,12 @@ const CarouselHero = () => {
               </div>
 
               {/* Image */}
-              <div className="relative w-full md:w-3/5 h-64 md:h-full flex items-center justify-center overflow-hidden">
+              <div className="relative w-full md:w-3/5 h-64 md:h-full flex items-center justify-center overflow-hidden bg-blue-950">
                 <img
                   src={slide.image}
                   alt={slide.title}
-                  className="w-full h-full object-cover md:rounded-none rounded-t-lg md:rounded-l-lg transition-all duration-300"
+                  className="w-auto h-full max-h-[90%] object-contain md:rounded-none rounded-t-lg md:rounded-l-lg transition-all duration-300 bg-blue-950 mx-auto"
+                  style={{ background: '#0f172a' }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-900/30 to-blue-900/0 pointer-events-none"></div>
               </div>
