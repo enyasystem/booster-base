@@ -55,6 +55,7 @@ const TrainingSection = () => {
                 <Button 
                   className="w-full mt-4"
                   onClick={handleNavigateToTraining}
+                  disabled
                 >
                   Register Now
                 </Button>

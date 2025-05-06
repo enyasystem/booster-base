@@ -121,7 +121,7 @@ const Training = () => {
             Advance your career with our industry-focused training programs. Learn from experienced professionals and gain practical skills.
           </p>
           <div className="flex justify-center mt-8">
-            <Button size="lg" className="bg-blue-700 hover:bg-blue-800 text-white px-8 py-3 text-lg rounded-lg shadow-lg transition-all duration-300" onClick={() => setShowForm(true)}>
+            <Button size="lg" className="bg-blue-700 hover:bg-blue-800 text-white px-8 py-3 text-lg rounded-lg shadow-lg transition-all duration-300" onClick={() => setShowForm(true)} disabled>
               Register Now
             </Button>
           </div>
@@ -165,7 +165,7 @@ const Training = () => {
                         </div>
                       </div>
                       <div className="mt-auto flex items-end">
-                        <Button className="bg-blue-700 hover:bg-blue-800 text-white w-full" onClick={() => setShowForm(true)}>
+                        <Button className="bg-blue-700 hover:bg-blue-800 text-white w-full" onClick={() => setShowForm(true)} disabled>
                           Register Now
                         </Button>
                       </div>
