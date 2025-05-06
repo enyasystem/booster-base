@@ -64,8 +64,10 @@ const Navigation = () => {
         href="https://docs.google.com/forms/d/e/1FAIpQLScFk7zpJBawWw0Np3yhJSmvNLJhEPktv4XTrJ3ebzlSKFbX4A/viewform?embedded=true&pli=1"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed right-6 bottom-6 z-[10000] bg-gradient-to-r from-blue-600 via-indigo-700 to-blue-900 text-white font-bold rounded-full px-7 py-3 text-base shadow-xl ring-4 ring-blue-400/30 flex items-center gap-2 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 demo-apply-slide-in hover:scale-105 hover:shadow-blue-400/40"
+        className="fixed right-6 bottom-6 z-[10000] bg-gradient-to-r from-blue-600 via-indigo-700 to-blue-900 text-white font-bold rounded-full px-7 py-3 text-base shadow-xl ring-4 ring-blue-400/30 flex items-center gap-2 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 demo-apply-slide-in hover:scale-105 hover:shadow-blue-400/40 opacity-60 cursor-not-allowed pointer-events-none"
         aria-label="Apply for Government Training"
+        tabIndex={-1}
+        aria-disabled="true"
         style={{ boxShadow: '0 4px 32px 0 rgba(49, 130, 206, 0.18)' }}
       >
         <Sparkles className="w-6 h-6 text-blue-200 animate-spin-slow" />
@@ -112,8 +114,10 @@ const Navigation = () => {
                 href="https://docs.google.com/forms/d/e/1FAIpQLScFk7zpJBawWw0Np3yhJSmvNLJhEPktv4XTrJ3ebzlSKFbX4A/viewform?embedded=true&pli=1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gradient-to-r from-blue-600 via-indigo-700 to-blue-900 text-white font-semibold rounded-lg px-5 py-2 ml-2 shadow-md ring-2 ring-blue-400/30 flex items-center gap-2 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 demo-apply-slide-in hover:scale-105 hover:shadow-blue-400/40"
+                className="bg-gradient-to-r from-blue-600 via-indigo-700 to-blue-900 text-white font-semibold rounded-lg px-5 py-2 ml-2 shadow-md ring-2 ring-blue-400/30 flex items-center gap-2 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 demo-apply-slide-in hover:scale-105 hover:shadow-blue-400/40 opacity-60 cursor-not-allowed pointer-events-none"
                 style={{ textShadow: '0 2px 8px #1e293b44' }}
+                tabIndex={-1}
+                aria-disabled="true"
               >
                 <Sparkles className="w-5 h-5 text-blue-200 animate-spin-slow" />
                 <span>Apply Now</span>
@@ -174,8 +178,10 @@ const Navigation = () => {
                 href="https://docs.google.com/forms/d/e/1FAIpQLScFk7zpJBawWw0Np3yhJSmvNLJhEPktv4XTrJ3ebzlSKFbX4A/viewform?embedded=true&pli=1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gradient-to-r from-blue-600 via-indigo-700 to-blue-900 text-white font-semibold rounded-lg px-5 py-3 mt-2 shadow-md ring-2 ring-blue-400/30 flex items-center justify-center gap-2 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 demo-apply-slide-in hover:scale-105 hover:shadow-blue-400/40"
+                className="bg-gradient-to-r from-blue-600 via-indigo-700 to-blue-900 text-white font-semibold rounded-lg px-5 py-3 mt-2 shadow-md ring-2 ring-blue-400/30 flex items-center justify-center gap-2 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 demo-apply-slide-in hover:scale-105 hover:shadow-blue-400/40 opacity-60 cursor-not-allowed pointer-events-none"
                 style={{ textShadow: '0 2px 8px #1e293b44' }}
+                tabIndex={-1}
+                aria-disabled="true"
               >
                 <Sparkles className="w-5 h-5 text-blue-200 animate-spin-slow" />
                 <span>Apply Now</span>
