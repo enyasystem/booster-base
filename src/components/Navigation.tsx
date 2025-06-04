@@ -61,7 +61,7 @@ const Navigation = () => {
   return (
     <>
       {/* Floating Action Button (FAB) for Apply Now */}
-      <a
+      {/* <a
         href="https://docs.google.com/forms/d/e/1FAIpQLScFk7zpJBawWw0Np3yhJSmvNLJhEPktv4XTrJ3ebzlSKFbX4A/viewform?embedded=true&pli=1"
         target="_blank"
         rel="noopener noreferrer"
@@ -72,8 +72,8 @@ const Navigation = () => {
         style={{ boxShadow: '0 4px 32px 0 rgba(49, 130, 206, 0.18)' }}
       >
         <Sparkles className="w-5 h-5 text-blue-200 animate-spin-slow" />
-        <span className="font-semibold tracking-wide text-sm">Apply for Booster Base ICT Training</span>
-      </a>
+        {/* <span className="font-semibold tracking-wide text-sm">Apply for Booster Base ICT Training</span> */}
+      {/* </a>  */}
 
       <header
         className={`fixed w-full z-50 transition-all duration-300 ${
@@ -118,7 +118,7 @@ const Navigation = () => {
                 </Link>
               ))}
               {/* Animated Apply Button */}
-              <a
+              {/* <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLScFk7zpJBawWw0Np3yhJSmvNLJhEPktv4XTrJ3ebzlSKFbX4A/viewform?embedded=true&pli=1"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -128,8 +128,8 @@ const Navigation = () => {
                 aria-disabled="false"
               >
                 <Sparkles className="w-5 h-5 text-blue-200 animate-spin-slow" />
-                <span>Apply Now</span>
-              </a>
+                {/* <span>Apply Now</span> */}
+              {/* </a>  */}
               {isAdmin && (
                 <Link to="/admin" className="font-medium text-blue-300 hover:text-blue-200">
                   Admin
@@ -182,7 +182,7 @@ const Navigation = () => {
                 </Link>
               ))}
               {/* Animated Apply Button for Mobile */}
-              <a
+              {/* <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLScFk7zpJBawWw0Np3yhJSmvNLJhEPktv4XTrJ3ebzlSKFbX4A/viewform?embedded=true&pli=1"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -192,8 +192,8 @@ const Navigation = () => {
                 aria-disabled="false"
               >
                 <Sparkles className="w-5 h-5 text-blue-200 animate-spin-slow" />
-                <span>Apply Now</span>
-              </a>
+                <span>Apply Now</span> */}
+              {/* </a> */}
               {isAdmin && (
                 <Link to="/admin" className="block py-2 font-medium text-blue-300">
                   Admin
