@@ -43,6 +43,12 @@ const videos = [
     title: "Adding LAN Ports To Your Router",
     description: "Learn how to increase your LAN ports and improve network speed",
     thumbnail: `https://img.youtube.com/vi/vpNhwl3XihI/maxresdefault.jpg`
+  },
+  {
+    id: "d86ws7mQYIg",
+    title: "Hardware 3D Graphics Explained",
+    description: "A deep dive into how hardware 3D graphics work, including GPUs and rendering pipelines.",
+    thumbnail: `https://img.youtube.com/vi/d86ws7mQYIg/maxresdefault.jpg`
   }
 ];
 
