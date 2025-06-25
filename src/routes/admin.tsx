@@ -5,6 +5,7 @@ import NewsManagement from "@/pages/admin/NewsManagement";
 import ProductManagement from "@/pages/admin/ProductManagement";
 import TrainingRegistrations from "@/pages/admin/TrainingRegistrations";
 import AccountSettings from "@/pages/admin/AccountSettings";
+import UserManagement from "@/pages/admin/UserManagement";
 
 const adminRoutes = [
   {
@@ -34,6 +35,10 @@ const adminRoutes = [
       {
         path: 'settings',
         element: <AccountSettings />
+      },
+      {
+        path: 'users',
+        element: <UserManagement />
       }
     ]
   }

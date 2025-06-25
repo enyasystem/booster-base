@@ -30,6 +30,7 @@ import Enterprise from './pages/Enterprise';
 import { ProductProvider, useProductContext } from "@/context/ProductContext";
 import { supabase } from "@/integrations/supabase/client";
 import DemoApplyButtonAnimations from './pages/DemoApplyButtonAnimations';
+import UserManagement from "./pages/admin/UserManagement";
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -92,6 +93,7 @@ const App = () => (
                     <Route path="products" element={<ProductManagement />} />
                     <Route path="training-registrations" element={<TrainingRegistrations />} />
                     <Route path="account" element={<AccountSettings />} />
+                    <Route path="users" element={<UserManagement />} />
                   </Route>
                   <Route path="*" element={<NotFound />} />
                 </Routes>
