@@ -6,6 +6,7 @@ import ProductManagement from "@/pages/admin/ProductManagement";
 import TrainingRegistrations from "@/pages/admin/TrainingRegistrations";
 import AccountSettings from "@/pages/admin/AccountSettings";
 import UserManagement from "@/pages/admin/UserManagement";
+import TrainingPhotoManagement from "@/pages/admin/TrainingPhotoManagement";
 
 const adminRoutes = [
   {
@@ -39,6 +40,10 @@ const adminRoutes = [
       {
         path: 'users',
         element: <UserManagement />
+      },
+      {
+        path: 'training-photo-management',
+        element: <TrainingPhotoManagement />
       }
     ]
   }
