@@ -380,10 +380,10 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "chat_history_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
+            foreignKeyName: "chat_history_user_id_fkey",
+            columns: ["user_id"],
+            isOneToOne: false,
+            referencedRelation: "profiles",
             referencedColumns: ["id"]
           },
         ]
@@ -1289,7 +1289,7 @@ export type Database = {
           bio?: string | null
           created_at?: string
           full_name?: string | null
-          id?: string
+          id: string
           theme_preferences?: Json | null
           updated_at?: string
           username?: string | null
@@ -1796,7 +1796,7 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: string
-          name: string
+          name?: string
         }
         Update: {
           created_at?: string
@@ -2123,7 +2123,7 @@ export type Tables<
   }
     ? keyof (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    : never,
 > = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
   ? (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
       Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
