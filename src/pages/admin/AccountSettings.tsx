@@ -1,7 +1,7 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import PasswordChangeForm from '@/components/auth/PasswordChangeForm';
+import EmailChangeForm from '@/components/auth/EmailChangeForm';
 import { 
   Tabs, 
   TabsContent, 
@@ -40,9 +40,13 @@ const AccountSettings = () => {
         <div className="border-t pt-6">
           <Tabs defaultValue="password" className="w-full">
             <TabsList className="mb-4">
+              <TabsTrigger value="email">Email</TabsTrigger>
               <TabsTrigger value="password">Password</TabsTrigger>
             </TabsList>
-            
+            <TabsContent value="email">
+              {/* Email change form */}
+              <EmailChangeForm />
+            </TabsContent>
             <TabsContent value="password">
               <PasswordChangeForm />
             </TabsContent>
