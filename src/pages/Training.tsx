@@ -9,6 +9,14 @@ import TrainingGallery from '@/components/training/TrainingGallery';
 import TeamGallery from '@/components/training/TeamGallery';
 import { supabase } from '@/integrations/supabase/client';
 
+interface TrainingPhoto {
+  id: string;
+  url: string;
+  caption: string;
+  description: string;
+  created_at?: string;
+}
+
 const teamData = {
   photos: [
     {
@@ -46,7 +54,7 @@ const teamData = {
 
 const Training = () => {
   const [showForm, setShowForm] = useState(false);
-  const [teamPhotos, setTeamPhotos] = useState<any[]>([]);
+  const [teamPhotos, setTeamPhotos] = useState<TrainingPhoto[]>([]);
 
   useEffect(() => {
     const fetchPhotos = async () => {
