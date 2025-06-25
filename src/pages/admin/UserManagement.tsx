@@ -6,7 +6,6 @@ import { useAuth } from '@/hooks/useAuth';
 
 interface User {
   id: string;
-  email?: string;
   full_name?: string;
   username?: string;
 }
@@ -22,7 +21,7 @@ export default function UserManagement() {
     if (!isAdmin) return;
     const fetchUsers = async () => {
       setLoading(true);
-      const { data, error } = await supabase.from('profiles').select('id, email, full_name, username');
+      const { data, error } = await supabase.from('profiles').select('id, full_name, username');
       if (error) setError(error.message);
       else setUsers(data || []);
       setLoading(false);
@@ -94,7 +93,6 @@ export default function UserManagement() {
                   />
                 </th>
                 <th className="px-4 py-2 text-left">ID</th>
-                <th className="px-4 py-2 text-left">Email</th>
                 <th className="px-4 py-2 text-left">Full Name</th>
                 <th className="px-4 py-2 text-left">Username</th>
                 <th className="px-4 py-2 text-left">Actions</th>
@@ -111,7 +109,6 @@ export default function UserManagement() {
                     />
                   </td>
                   <td className="px-4 py-2 font-mono text-xs">{u.id}</td>
-                  <td className="px-4 py-2">{u.email}</td>
                   <td className="px-4 py-2">{u.full_name}</td>
                   <td className="px-4 py-2">{u.username}</td>
                   <td className="px-4 py-2">
