@@ -102,6 +102,7 @@ const AdminLayout = () => {
     // { path: '/admin/news', label: 'News', icon: <Newspaper className="h-5 w-5" /> },
     { path: '/admin/products', label: 'Products', icon: <Package className="h-5 w-5" /> },
     { path: '/admin/training-registrations', label: 'Training', icon: <GraduationCap className="h-5 w-5" /> },
+    { path: '/admin/UserManagement', label: 'User Management', icon: <Users className="h-5 w-5" /> },
     { path: '/admin/account', label: 'Account', icon: <UserCog className="h-5 w-5" /> },
     // { path: '/admin/blog', label: 'Blog', icon: <FileText className="h-5 w-5" /> },
   ];
