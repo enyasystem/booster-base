@@ -4,9 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookOpen, Users, Clock, Award } from 'lucide-react';
 import RegistrationForm from '@/components/training/RegistrationForm';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TrainingGallery from '@/components/training/TrainingGallery';
 import TeamGallery from '@/components/training/TeamGallery';
+import { supabase } from '@/integrations/supabase/client';
 
 const teamData = {
   photos: [
@@ -45,6 +46,15 @@ const teamData = {
 
 const Training = () => {
   const [showForm, setShowForm] = useState(false);
+  const [teamPhotos, setTeamPhotos] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchPhotos = async () => {
+      const { data, error } = await supabase.from('training_photos').select('*').order('created_at', { ascending: false });
+      if (!error) setTeamPhotos(data || []);
+    };
+    fetchPhotos();
+  }, []);
   
   const courses = [
     {
@@ -209,7 +219,7 @@ const Training = () => {
           <section className="py-16 px-6 bg-white">
             <div className="max-w-7xl mx-auto">
               <h2 className="text-3xl font-bold text-center mb-12 text-blue-900">Our Training Community</h2>
-              <TeamGallery photos={teamData.photos} />
+              <TeamGallery photos={teamPhotos.length > 0 ? teamPhotos : teamData.photos} />
             </div>
           </section>
 
