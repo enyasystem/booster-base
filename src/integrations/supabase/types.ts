@@ -1906,6 +1906,30 @@ export type Database = {
           },
         ]
       }
+      training_photos: {
+        Row: {
+          id: string
+          url: string
+          caption: string | null
+          description: string | null
+          created_at: string | null
+        }
+        Insert: {
+          id?: string
+          url: string
+          caption?: string | null
+          description?: string | null
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          url?: string
+          caption?: string | null
+          description?: string | null
+          created_at?: string | null
+        }
+        Relationships: []
+      }
       training_registrations: {
         Row: {
           additional_info: string | null

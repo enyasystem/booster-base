@@ -22,7 +22,7 @@ const AdminDashboard = () => {
         supabase.from('products').select('*', { count: 'exact', head: true }),
         // supabase.from('content_management').select('*', { count: 'exact', head: true }),
         // supabase.from('news_posts').select('*', { count: 'exact', head: true }),
-        (supabase as any).from('training_registrations').select('*', { count: 'exact', head: true })
+        supabase.from('training_registrations').select('*', { count: 'exact', head: true })
       ]);
 
       return {

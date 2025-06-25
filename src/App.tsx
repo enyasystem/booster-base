@@ -31,6 +31,7 @@ import { ProductProvider, useProductContext } from "@/context/ProductContext";
 import { supabase } from "@/integrations/supabase/client";
 import DemoApplyButtonAnimations from './pages/DemoApplyButtonAnimations';
 import UserManagement from "./pages/admin/UserManagement";
+import TrainingPhotoManagement from "./pages/admin/TrainingPhotoManagement";
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -94,6 +95,7 @@ const App = () => (
                     <Route path="training-registrations" element={<TrainingRegistrations />} />
                     <Route path="account" element={<AccountSettings />} />
                     <Route path="users" element={<UserManagement />} />
+                    <Route path="training-photo-management" element={<TrainingPhotoManagement />} />
                   </Route>
                   <Route path="*" element={<NotFound />} />
                 </Routes>
